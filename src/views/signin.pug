@@ -1,0 +1,16 @@
+extends base.pug
+
+append head
+  title Sign in
+append content
+  form(action='/signin' method='post')
+    h2 Sign In
+    - if (message.length > 0)
+      .alert.alert-danger= message
+    .form-group
+      label Username:
+      input(type='text' name='username').form-control
+    .form-group
+      label Password:
+      input(type='password' name='password').form-control
+    input(type='submit' value='Submit').btn.btn-default

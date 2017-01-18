@@ -1,0 +1,19 @@
+extends base.pug
+
+append head
+  title Sign Up
+append content
+  form(action='/signup' method='post')
+    h2 Sign Up
+    - if (message.length > 0)
+      .alert.alert-danger= message
+    .form-group
+      label Username:
+      input(type='text' name='username').form-control
+    .form-group
+      label Password:
+      input(type='password' name='password').form-control
+    .form-group
+      label Confirm Password:
+      input(type='password' name='confirm').form-control
+    input(type='submit' value='Submit').btn.btn-default

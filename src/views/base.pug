@@ -1,0 +1,19 @@
+mixin css(path)
+  link(rel='stylesheet' href=path)
+
+mixin js(path)
+  script(type='text/javascript' src=path)
+
+head
+  block head
+    +css('../assets/bootstrap.css')
+    +css('../assets/main.css')
+    +js('../assets/jquery.js')
+    +js('../assets/bootstrap.js')
+body
+  block body
+    .container
+      block content
+    footer.navbar-fixed-bottom.footer
+      block foot
+        span Copyright Russell Clarey #{ (new Date).getFullYear() }

@@ -1,0 +1,7 @@
+/build
+/node_modules
+/.sass-cache
+/.openshift
+.eslintrc
+/config/db.js
+/config/session.js
