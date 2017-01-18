@@ -1,16 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+
 import App from './components/App.jsx';
+import Settings from './components/Settings/Settings.jsx'
+import Account from './components/Settings/Account.jsx'
+import Editor from './components/Settings/Editor.jsx'
+
 import reducer from './redux/reducer.jsx';
 
 const store = createStore(reducer);
 
 const routes = (
-  <Route path="/app" component={App}>
-    <Route path="asdf" component={App} />
+  <Route path="/" component={App}>
+    <IndexRoute component={Workspace} />
+    <Route path="settings" component={Settings}>
+      <Route path="account" component={Account} />
+      <Route path="editor" component={Editor} />
+    </Route>
   </Route>
 );
 
