@@ -6,7 +6,9 @@ export default function App(props) {
   return (
     <div id="app">
       <TopBar id="app-topbar" />
-      {props.children}
+      <div id="app-main">
+        {props.children}
+      </div>
     </div>
   );
 }
