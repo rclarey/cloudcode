@@ -17,9 +17,9 @@ import reducer from 'redux/reducer.jsx';
 const store = createStore(reducer);
 
 const routes = (
-  <Route path="/" component={App}>
+  <Route path="/editor" component={App}>
     <IndexRoute component={Workspace} />
-    <Route path="settings" component={Settings}>
+    <Route path="/settings" component={Settings}>
       <Route path="account" component={Account} />
       <Route path="editor" component={Editor} />
     </Route>

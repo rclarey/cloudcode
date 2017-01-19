@@ -17,7 +17,7 @@ module.exports = function route(app, passport) {
   });
 
   app.post('/signin', passport.authenticate('signin', {
-    successRedirect: '/app',
+    successRedirect: '/editor',
     failureRedirect: '/signin',
     failureFlash: true,
   }));
