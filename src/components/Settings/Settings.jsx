@@ -1,7 +1,7 @@
 // src/components/settings/Settings.jsx
 
 import React from 'react';
-import LeftBar from './LeftBar.jsx'
+import LeftBar from 'components/settings/LeftBar.jsx'
 
 export default Settings = React.createClass({
 

@@ -1,7 +1,7 @@
 // src/redux/reducer.jsx
 
 import { Map } from 'immutable';
-import setState from './actions.jsx';
+import setState from 'redux/actions.jsx';
 
 export default function (state = new Map(), action) {
   switch (action.type) {

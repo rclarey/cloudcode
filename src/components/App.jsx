@@ -1,7 +1,7 @@
 // src/components/App.jsx
 
 import React from 'react';
-import TopBar from './TopBar.jsx'
+import TopBar from 'components/TopBar.jsx'
 
 export default function App(props) {
   return (

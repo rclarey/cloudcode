@@ -1,10 +1,10 @@
 // src/components/workspace/Workspace.jsx
 
 import React from 'react';
-import BottomBar from './BottomBar.jsx'
-import Editor from './Editor.jsx';
-import TabBar from './TabBar.jsx';
-import TreeView from './TreeView.jsx';
+import BottomBar from 'components/workspace/BottomBar.jsx'
+import Editor from 'components/workspace/Editor.jsx';
+import TabBar from 'components/workspace/TabBar.jsx';
+import TreeView from 'components/workspace/TreeView.jsx';
 
 export default Workspace = React.createClass({
 
