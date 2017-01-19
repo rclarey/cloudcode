@@ -1,6 +1,7 @@
 // src/components/workspace/Workspace.jsx
 
 import React from 'react';
+import BottomBar from './BottomBar.jsx'
 import Editor from './Editor.jsx';
 import TabBar from './TabBar.jsx';
 import TreeView from './TreeView.jsx';
