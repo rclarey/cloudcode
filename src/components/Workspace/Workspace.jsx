@@ -1,6 +1,9 @@
-// src/components/Workspace/Workspace.jsx
+// src/components/workspace/Workspace.jsx
 
 import React from 'react';
+import Editor from './Editor.jsx';
+import TabBar from './TabBar.jsx';
+import TreeView from './TreeView.jsx';
 
 export default Workspace = React.createClass({
 
