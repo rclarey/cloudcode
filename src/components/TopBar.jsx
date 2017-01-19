@@ -5,9 +5,7 @@ import React from 'react';
 const TopBar = React.createClass({
 
   render() {
-    <div>
-      TopBar
-    </div>
+    return (<div>TopBar</div>);
   }
 
 });

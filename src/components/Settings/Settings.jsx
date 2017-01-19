@@ -6,12 +6,14 @@ import LeftBar from 'components/settings/LeftBar.jsx'
 const Settings = React.createClass({
 
   render() {
-    <div id="settings">
-      <LeftBar id="settings-leftbar"/>
-      <div id="settings-main">
-        {this.props.children}
+    return (
+      <div id="settings">
+        <LeftBar id="settings-leftbar"/>
+        <div id="settings-main">
+          {this.props.children}
+        </div>
       </div>
-    </div>
+    );
   }
 
 });

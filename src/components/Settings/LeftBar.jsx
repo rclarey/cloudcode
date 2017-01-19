@@ -5,9 +5,7 @@ import React from 'react';
 const LeftBar = React.createClass({
 
   render() {
-    <div>
-      LeftBar
-    </div>
+    return (<div>LeftBar</div>);
   }
 
 });

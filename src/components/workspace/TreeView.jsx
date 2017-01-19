@@ -5,9 +5,7 @@ import React from 'react';
 const TreeView = React.createClass({
 
   render() {
-    <div>
-      TreeView
-    </div>
+    return (<div>TreeView</div>)
   }
 
 });

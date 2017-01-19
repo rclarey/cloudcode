@@ -5,9 +5,7 @@ import React from 'react';
 const Editor = React.createClass({
 
   render() {
-    <div>
-      Editor
-    </div>
+    return (<div>Editor</div>);
   }
 
 });

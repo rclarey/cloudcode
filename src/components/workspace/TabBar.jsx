@@ -5,9 +5,7 @@ import React from 'react';
 const TabBar = React.createClass({
 
   render() {
-    <div>
-      TabBar
-    </div>
+    return (<div>TabBar</div>);
   }
 
 });
