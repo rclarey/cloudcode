@@ -12,13 +12,13 @@ const Workspace = React.createClass({
     return (
       <div id="workspace">
         <div id="workspace-main">
-          <TreeView id="workspace-treeview" />
+          <TreeView />
           <div id="workspace-main-centre">
-            <TabBar id="workspace-tabbar" />
-            <Editor id="workspace-editor" />
+            <TabBar />
+            <Editor />
           </div>
         </div>
-        <BottomBar id="workspace-footer" />
+        <BottomBar />
       </div>
     );
   }

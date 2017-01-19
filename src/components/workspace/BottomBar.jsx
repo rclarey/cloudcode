@@ -5,7 +5,7 @@ import React from 'react';
 const BottomBar = React.createClass({
 
   render() {
-    return (<div>BottomBar</div>);
+    return (<div id="workspace-bottombar">BottomBar</div>);
   }
 
 });

@@ -5,7 +5,7 @@ import React from 'react';
 const LeftBar = React.createClass({
 
   render() {
-    return (<div>LeftBar</div>);
+    return (<div id="settings-leftbar">LeftBar</div>);
   }
 
 });

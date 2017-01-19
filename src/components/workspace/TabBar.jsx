@@ -5,7 +5,7 @@ import React from 'react';
 const TabBar = React.createClass({
 
   render() {
-    return (<div>TabBar</div>);
+    return (<div id="workspace-tabbar">TabBar</div>);
   }
 
 });

@@ -5,7 +5,7 @@ import React from 'react';
 const Editor = React.createClass({
 
   render() {
-    return (<div>Editor</div>);
+    return (<div id="workspace-editor">Editor</div>);
   }
 
 });

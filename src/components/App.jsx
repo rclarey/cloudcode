@@ -6,7 +6,7 @@ import TopBar from 'components/TopBar.jsx'
 export default function App(props) {
   return (
     <div id="app">
-      <TopBar id="app-topbar" />
+      <TopBar />
       <div id="app-main">
         {props.children}
       </div>

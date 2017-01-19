@@ -8,7 +8,7 @@ const Settings = React.createClass({
   render() {
     return (
       <div id="settings">
-        <LeftBar id="settings-leftbar"/>
+        <LeftBar />
         <div id="settings-main">
           {this.props.children}
         </div>

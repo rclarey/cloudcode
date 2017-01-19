@@ -5,7 +5,7 @@ import React from 'react';
 const TopBar = React.createClass({
 
   render() {
-    return (<div>TopBar</div>);
+    return (<div id="app-topbar">TopBar</div>);
   }
 
 });
