@@ -6,6 +6,11 @@ module.exports = {
   entry: [
     './src/index.jsx',
   ],
+  resolve: {
+    root: [
+      path.resolve('./src')
+    ]
+  },
   output: {
     path: `${__dirname}/build/assets`,
     filename: 'bundle.js',
