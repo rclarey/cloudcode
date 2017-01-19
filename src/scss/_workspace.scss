@@ -1,0 +1,78 @@
+// src/scss/_workspace.scss
+
+.flex-and-relative {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  &-main {
+    @extend .flex-and-relative;
+  }
+
+  &-topbar {
+    padding: 5px;
+  }
+
+  #workspace {
+    @extend .flex-and-relative;
+    flex-direction: column;
+
+    &-bottombar {
+      padding: 5px;
+    }
+
+    &-editor {
+      @extend .flex-and-relative;
+      padding: 5px;
+    }
+
+    &-main {
+      @extend .flex-and-relative;
+
+      &-centre {
+        @extend .flex-and-relative;
+        flex-direction: column;
+        overflow: visible;
+      }
+    }
+
+    &-tabbar {
+      padding: 5px;
+    }
+
+    &-treeview {
+      height: initial;
+      padding: 5px;
+      position: relative;
+      width: 15%;
+    }
+  }
+}
+
+// borders for testing purposes
+
+#app-topbar {
+    border: 1px solid red;
+}
+#workspace-treeview {
+    border: 1px solid green;
+}
+#workspace-tabbar {
+    border: 1px solid blue;
+}
+#workspace-editor {
+    border:1px solid brown
+}
+#workspace-bottombar {
+    border: 1px solid orange;
+}
