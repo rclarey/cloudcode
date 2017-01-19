@@ -3,7 +3,7 @@
 import React from 'react';
 import LeftBar from 'components/settings/LeftBar.jsx'
 
-export default Settings = React.createClass({
+const Settings = React.createClass({
 
   render() {
     <div id="settings">
@@ -19,3 +19,5 @@ export default Settings = React.createClass({
 Settings.propTypes = {
   children: React.PropTypes.element.isRequired,
 };
+
+export default Settings;

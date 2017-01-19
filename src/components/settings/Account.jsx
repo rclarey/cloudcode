@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default Account = React.createClass({
+const Account = React.createClass({
 
   render() {
     <div>
@@ -13,3 +13,5 @@ export default Account = React.createClass({
 });
 
 Account.propTypes = {};
+
+export default Account;

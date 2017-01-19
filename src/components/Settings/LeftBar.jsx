@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default LeftBar = React.createClass({
+const LeftBar = React.createClass({
 
   render() {
     <div>
@@ -13,3 +13,5 @@ export default LeftBar = React.createClass({
 });
 
 LeftBar.propTypes = {};
+
+export default LeftBar;

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default TreeView = React.createClass({
+const TreeView = React.createClass({
 
   render() {
     <div>
@@ -13,3 +13,5 @@ export default TreeView = React.createClass({
 });
 
 TreeView.propTypes = {};
+
+export default TreeView;

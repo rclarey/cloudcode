@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default TabBar = React.createClass({
+const TabBar = React.createClass({
 
   render() {
     <div>
@@ -13,3 +13,5 @@ export default TabBar = React.createClass({
 });
 
 TabBar.propTypes = {};
+
+export default TabBar;

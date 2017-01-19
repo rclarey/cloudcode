@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default BottomBar = React.createClass({
+const BottomBar = React.createClass({
 
   render() {
     <div>
@@ -13,3 +13,5 @@ export default BottomBar = React.createClass({
 });
 
 BottomBar.propTypes = {};
+
+export default BottomBar;

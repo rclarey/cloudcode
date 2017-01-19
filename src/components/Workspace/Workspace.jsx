@@ -6,7 +6,7 @@ import Editor from 'components/workspace/Editor.jsx';
 import TabBar from 'components/workspace/TabBar.jsx';
 import TreeView from 'components/workspace/TreeView.jsx';
 
-export default Workspace = React.createClass({
+const Workspace = React.createClass({
 
   render() {
     <div id="workspace">
@@ -24,3 +24,5 @@ export default Workspace = React.createClass({
 });
 
 Workspace.propTypes = {};
+
+export default Workspace;

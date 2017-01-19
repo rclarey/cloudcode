@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default Editor = React.createClass({
+const Editor = React.createClass({
 
   render() {
     <div>
@@ -13,3 +13,5 @@ export default Editor = React.createClass({
 });
 
 Editor.propTypes = {};
+
+export default Editor;
