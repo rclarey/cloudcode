@@ -7,10 +7,10 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import App from 'components/App.jsx';
-import Settings from 'components/settings/Settings.jsx'
-import Account from 'components/settings/Account.jsx'
-import Editor from 'components/settings/Editor.jsx'
-import Workspace from 'components/workspace/Workspace.jsx'
+import Settings from 'components/settings/Settings.jsx';
+import Account from 'components/settings/Account.jsx';
+import Editor from 'components/settings/Editor.jsx';
+import Workspace from 'components/workspace/Workspace.jsx';
 
 import reducer from 'redux/reducer.jsx';
 
