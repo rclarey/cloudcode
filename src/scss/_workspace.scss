@@ -20,7 +20,10 @@
   }
 
   &-topbar {
+    background: white;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.4);
     padding: 5px;
+    z-index: 13;
   }
 
   #workspace {
@@ -47,32 +50,28 @@
     }
 
     &-tabbar {
+      background: white;
+      box-shadow: 1px 0px 5px rgba(0,0,0,0.4);
+      font-size: 14px;
       padding: 5px;
+      padding-bottom: 0px;
+      z-index: 11;
     }
 
     &-treeview {
       height: initial;
       padding: 5px;
       position: relative;
-      width: 15%;
+      width: 250px;
+      z-index: 12;
+      background: white;
+      box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.4);
+
+      .ui-resizable-handle.ui-resizable-e {
+        background: white;
+        cursor: col-resize;
+        right: 0px;
+      }
     }
   }
-}
-
-// borders for testing purposes
-
-#app-topbar {
-    border: 1px solid red;
-}
-#workspace-treeview {
-    border: 1px solid green;
-}
-#workspace-tabbar {
-    border: 1px solid blue;
-}
-#workspace-editor {
-    border:1px solid brown
-}
-#workspace-bottombar {
-    border: 1px solid orange;
 }
