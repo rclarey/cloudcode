@@ -10,6 +10,7 @@ const session = require('express-session');
 
 const mongoose = require('mongoose');
 const passport = require('passport');
+const MongoStore = require('connect-mongo')(session);
 
 const dbConfig = require('./config/db.js');
 const passportConfig = require('./config/passport.js');
@@ -29,7 +30,7 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 
 // for passport
-app.use(session(sessionConfig(app)));
+app.use(session(sessionConfig(app, MongoStore)));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 passportConfig(passport); // pass passport for configuration
