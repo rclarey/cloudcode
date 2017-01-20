@@ -53,9 +53,54 @@
       background: white;
       box-shadow: 1px 0px 5px rgba(0,0,0,0.4);
       font-size: 14px;
-      padding: 5px;
-      padding-bottom: 0px;
+      margin: 0px;
+      padding: 10px 5px 0;
       z-index: 11;
+
+      &-ul {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        .tab {
+          border: 1px solid #bbb;
+          border-bottom: 0;
+          border-radius: 5px 5px 0 0;
+          display: flex;
+          flex: 1 0 0px;
+          list-style: none;
+          margin-left: -1px;
+          max-width: 200px;
+          min-width: 90px;
+          padding: 5px 25px;
+          position: relative;
+          text-align: center;
+
+          &-close {
+            border-radius: 100px;
+            cursor: pointer;
+            line-height: 0.9;
+            padding: 0px 3px 2px;
+            position: absolute;
+            right: 3px;
+            top: 8px;
+          }
+
+          &-text {
+            cursor: default;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+          }
+        }
+
+        .tab-active {
+          background: white;
+          margin: -3px -1px 0px;
+          z-index: 12;
+        }
+      }
     }
 
     &-treeview {
