@@ -5,11 +5,19 @@ import React from 'react';
 const TabBar = React.createClass({
 
   render() {
-    return (<div id="workspace-tabbar">TabBar</div>);
+    return (
+      <div id="workspace-tabbar">
+        <ul id="workspace-tabbar-ul">
+          {this.props.children}
+        </ul>
+      </div>
+    );
   }
 
 });
 
-TabBar.propTypes = {};
+TabBar.propTypes = {
+  children: React.PropTypes.element.isRequired,
+};
 
 export default TabBar;
