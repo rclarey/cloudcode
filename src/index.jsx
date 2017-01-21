@@ -2,19 +2,16 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import browserHistory from 'react-router/lib/browserHistory';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import Route from 'react-router/lib/Route';
+import Router from 'react-router/lib/Router';
 
 import App from 'components/App.jsx';
 import Settings from 'components/settings/Settings.jsx';
 import Account from 'components/settings/Account.jsx';
 import Editor from 'components/settings/Editor.jsx';
 import Workspace from 'components/workspace/Workspace.jsx';
-
-import reducer from 'redux/reducer.jsx';
-
-const store = createStore(reducer);
 
 const routes = (
   <Route path="/editor" component={App}>
@@ -27,8 +24,6 @@ const routes = (
 );
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory}>{routes}</Router>
-  </Provider>,
+  <Router history={browserHistory}>{routes}</Router>,
   document.getElementById('app'),
 );
