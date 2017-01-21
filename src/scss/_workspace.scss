@@ -21,7 +21,7 @@
 
   &-topbar {
     background: white;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.4);
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.4);
     padding: 5px;
     z-index: 13;
   }
@@ -31,12 +31,24 @@
     flex-direction: column;
 
     &-bottombar {
+      background: white;
+      box-shadow: 0px -1px 5px rgba(0,0,0,0.4);
       padding: 5px;
+      z-index: 13;
     }
 
     &-editor {
       @extend .flex-and-relative;
       padding: 5px;
+
+      .CodeMirror {
+        height: 100%;
+        width: 100%;
+
+        &-gutters {
+          padding-bottom: 600px;
+        }
+      }
     }
 
     &-main {

@@ -1,10 +1,11 @@
 extends base.pug
 
-append head
+block head
   title React App
   +css('../assets/jquery-ui.structure.min.css')
   +css('../assets/codemirror.css')
   +css('../assets/app.css')
+  +js('../assets/jquery.js')
   +js('../assets/jquery-ui.custom.js')
   +js('../assets/codemirror.js')
   +js('../assets/diff.js')
