@@ -6,7 +6,7 @@ const BottomBar = React.createClass({
 
   render() {
     return (<div id="workspace-bottombar">BottomBar</div>);
-  }
+  },
 
 });
 
