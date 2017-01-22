@@ -39,15 +39,11 @@
 
     &-editor {
       @extend .flex-and-relative;
-      padding: 5px;
 
       .CodeMirror {
         height: 100%;
         width: 100%;
-
-        &-gutters {
-          padding-bottom: 600px;
-        }
+        position: absolute;
       }
     }
 
@@ -57,7 +53,7 @@
       &-centre {
         @extend .flex-and-relative;
         flex-direction: column;
-        overflow: visible;
+        overflow: hidden;
       }
     }
 
@@ -97,6 +93,9 @@
             position: absolute;
             right: 3px;
             top: 8px;
+            border: none;
+            background: none;
+            outline: none;
           }
 
           &-text {
