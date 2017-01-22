@@ -10,6 +10,10 @@ const TreeView = React.createClass({
     });
   },
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.tree !== nextProps.tree;
+  },
+
   render() {
     return (
       <div id="workspace-treeview">

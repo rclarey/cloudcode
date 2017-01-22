@@ -30,7 +30,7 @@ const Workspace = React.createClass({
     }).isRequired,
   },
   shouldComponentUpdate(nextProps) {
-    return this.props.store !== nextProps.store;
+    return this.props.store.workspace !== nextProps.store.workspace;
   },
   render() {
     return (

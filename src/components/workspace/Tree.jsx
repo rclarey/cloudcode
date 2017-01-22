@@ -8,7 +8,7 @@ const TopBar = React.createClass({
   },
 
   shouldComponentUpdate(nextProps) {
-    return this.props.name !== nextProps.name;
+    return this.props.tree !== nextProps.tree;
   },
 
   render() {
