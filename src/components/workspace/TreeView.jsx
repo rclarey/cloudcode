@@ -11,7 +11,12 @@ const TreeView = React.createClass({
   },
 
   render() {
-    return (<div id="workspace-treeview">TreeView</div>);
+    return (
+      <div id="workspace-treeview">
+        <Tree title="Owned" />
+        <Tree title="Shared" />
+      </div>
+    );
   },
 
 });
