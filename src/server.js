@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const morgan = require('morgan');
 const serveStatic = require('serve-static');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -29,7 +30,8 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 
 // for passport
-app.use(session(sessionConfig(app)));
+const store = new MongoStore({ mongooseConnection: mongoose.connection });
+app.use(session(sessionConfig(app, store)));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 passportConfig(passport); // pass passport for configuration
