@@ -36,7 +36,7 @@ const Workspace = React.createClass({
     return (
       <div id="workspace">
         <div id="workspace-main">
-          <TreeView tree={this.props.store.workspace.tree} />
+          <TreeView tree={this.props.store.workspace.tree} hub={this.props.hub} />
           <div id="workspace-main-centre">
             <TabBar tabs={this.props.store.workspace.tabs} hub={this.props.hub} />
             <Editor />

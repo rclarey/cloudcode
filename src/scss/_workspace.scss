@@ -1,5 +1,19 @@
 // src/scss/_workspace.scss
 
+@mixin folderWidget($url) {
+  background-image: url($url);
+  background-position: center center;
+  background-repeat: no-repeat;
+  content: '';
+  height: 10px;
+  width: 10px;
+  image-rendering: pixelated;
+  z-index: 13;
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+
 .flex-and-relative {
   display: flex;
   flex: 1;
@@ -115,6 +129,7 @@
     }
 
     &-treeview {
+      cursor: default;
       height: initial;
       padding: 5px;
       position: relative;
@@ -122,6 +137,68 @@
       z-index: 12;
       background: white;
       box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.4);
+
+      .tree {
+
+        &-file-name:after, &-folder-name:after {
+          width: 0;
+          top: -6px;
+          left: 5px;
+          height: 15px;
+          position: absolute;
+          border-left: 1px dotted gray;
+          content: '';
+          display: block;
+        }
+
+        &-file-name:before, &-folder-name:before {
+          position: absolute;
+          background: none !important;
+          border-bottom: 1px dotted gray;
+          width: 7px;
+          height: 0;
+          top: 10px;
+          left: 5px;
+          content: '';
+        }
+
+        &:nth-of-type(2) {
+          margin-top: 15px;
+        }
+
+        &-title {
+
+          &-divider {
+            margin: 2px 0px 10px;
+          }
+        }
+
+        &-file {
+          padding-left: 13px;
+          position: relative;
+        }
+
+        &-folder {
+          padding-left: 13px;
+          position: relative;
+
+          &-inner {
+            &.open:before {
+              @include folderWidget('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAACVBMVEX///+/v78AAABCS8n0AAAAFElEQVQI12MIDXVgQIZeK1D4IHkAbMQGB9awVs4AAAAASUVORK5CYII=');
+            }
+
+            &.closed:before {
+              @include folderWidget('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAACVBMVEX///+/v78AAABCS8n0AAAAGElEQVQI12MIDXVgAMMGCPZagWADIUgeAJDECAeFz1XEAAAAAElFTkSuQmCC');
+            }
+          }
+
+          &-holds {
+            list-style: none;
+            margin: 0;
+            padding-left: 0;
+          }
+        }
+      }
 
       .ui-resizable-handle.ui-resizable-e {
         background: white;

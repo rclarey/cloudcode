@@ -1,39 +1,42 @@
 // src/freezer/schema.js
 
 export default {
-  Workspace(space = { tabs: [], own: [], shared: [] }) {
+  Workspace(space) {
     return {
-      tabs: space.tabs,
+      tabs: space.tabs || [],
       tree: {
-        own: space.own,
-        shared: space.shared,
+        own: space.own || [],
+        shared: space.shared || [],
       },
       bar: {
         mode: space.mode,
       },
     };
   },
-  Tab(name = undefined, src = undefined, active = false) {
+  Tab(src, active) {
+    if (!src) { throw Error(); }
     return {
-      name,
       src,
-      active,
+      active: active || false,
+      name: src.slice(src.lastIndexOf('/') + 1),
     };
   },
-  File(name, holds = '') {
-    if (!name) { throw Error(); }
+  File(src, holds) {
+    if (!src) { throw Error(); }
     return {
-      name,
-      holds,
+      src,
+      holds: holds || '',
+      name: src.slice(src.lastIndexOf('/') + 1),
       file: true,
       share: false,
     };
   },
-  Folder(name, holds = []) {
-    if (!name) { throw Error(); }
+  Folder(src, holds) {
+    if (!src) { throw Error(); }
     return {
-      name,
-      holds,
+      src,
+      holds: holds || [],
+      name: src.slice(src.lastIndexOf('/') + 1),
       file: false,
       open: false,
     };
