@@ -35,7 +35,7 @@ const Tree = React.createClass({
     if (this.props.open) {
       holds = (
         <ul className="tree-folder-holds">
-          {this.props.holds.map(node => helpers.renderNode(node, this.props.hub))}
+          {this.props.holds.map(node => helpers.renderTreeNode(node, this.props.hub))}
         </ul>
       );
     }

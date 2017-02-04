@@ -26,7 +26,7 @@ const Tree = React.createClass({
         <span className="tree-title">{this.props.title}</span>
         <hr className="tree-title-divider" />
         <ul className="tree-folder-holds">
-          {this.props.tree.map(node => helpers.renderNode(node, this.props.hub))}
+          {this.props.tree.map(node => helpers.renderTreeNode(node, this.props.hub))}
         </ul>
       </div>
     );

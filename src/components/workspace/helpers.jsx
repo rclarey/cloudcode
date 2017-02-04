@@ -5,7 +5,7 @@ import File from 'components/workspace/File.jsx';
 import Folder from 'components/workspace/Folder.jsx';
 
 export default {
-  renderNode(node, hub) {
+  renderTreeNode(node, hub) {
     if (node.file) {
       return <File {...node} hub={hub} />;
     }
