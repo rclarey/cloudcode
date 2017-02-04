@@ -133,10 +133,10 @@
       height: initial;
       padding: 5px;
       position: relative;
-      width: 250px;
       z-index: 12;
       background: white;
       box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.4);
+      min-width: 150px;
 
       .tree {
 
@@ -200,10 +200,15 @@
         }
       }
 
-      .ui-resizable-handle.ui-resizable-e {
+      .resize-handle {
+        z-index: 100;
+        position: absolute;
         background: white;
         cursor: col-resize;
+        top: 0px;
         right: 0px;
+        height: 100%;
+        width: 8px;
       }
     }
   }

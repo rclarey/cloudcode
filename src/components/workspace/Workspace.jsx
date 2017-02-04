@@ -23,6 +23,7 @@ const Workspace = React.createClass({
           ),
         ).isRequired,
         bar: React.PropTypes.shape({}).isRequired,
+        treeWidth: React.PropTypes.number.isRequired,
       }).isRequired,
     }).isRequired,
     hub: React.PropTypes.shape({
@@ -33,10 +34,15 @@ const Workspace = React.createClass({
     return this.props.store.workspace !== nextProps.store.workspace;
   },
   render() {
+    const treeProps = {
+      tree: this.props.store.workspace.tree,
+      hub: this.props.hub,
+      width: this.props.store.workspace.treeWidth,
+    };
     return (
       <div id="workspace">
         <div id="workspace-main">
-          <TreeView tree={this.props.store.workspace.tree} hub={this.props.hub} />
+          <TreeView {...treeProps} />
           <div id="workspace-main-centre">
             <TabBar tabs={this.props.store.workspace.tabs} hub={this.props.hub} />
             <Editor />

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Tree from 'components/workspace/Tree.jsx';
+import ResizeHandle from 'components/workspace/ResizeHandle.jsx';
 
 const TreeView = React.createClass({
   propTypes: {
@@ -13,24 +14,20 @@ const TreeView = React.createClass({
     hub: React.PropTypes.shape({
       trigger: React.PropTypes.func.isRequired,
     }).isRequired,
-  },
-
-  componentDidMount() {
-    $('#workspace-treeview').resizable({
-      handles: 'e',
-      minWidth: 100,
-    });
+    width: React.PropTypes.number.isRequired,
   },
 
   shouldComponentUpdate(nextProps) {
-    return this.props.tree !== nextProps.tree;
+    const p = this.props;
+    return p.tree !== nextProps.tree || p.width !== nextProps.width;
   },
 
   render() {
     return (
-      <div id="workspace-treeview">
+      <div id="workspace-treeview" style={{ width: `${this.props.width}px` }}>
         <Tree title="Owned" tree={this.props.tree.own} hub={this.props.hub} />
         <Tree title="Shared" tree={this.props.tree.shared} hub={this.props.hub} />
+        <ResizeHandle hub={this.props.hub} />
       </div>
     );
   },

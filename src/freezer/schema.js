@@ -8,6 +8,7 @@ export default {
         own: space.own || [],
         shared: space.shared || [],
       },
+      treeWidth: space.treeWidth,
       bar: {
         mode: space.mode,
       },

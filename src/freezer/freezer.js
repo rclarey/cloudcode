@@ -9,15 +9,16 @@ const freezer = new Freezer({
   workspace: schema.Workspace({
     tabs: [schema.Tab('own/file1.js'), schema.Tab('own/file2.js')],
     own: [
-      schema.File('own/file1.js'),
-      schema.Folder('own/src', [
-        schema.File('own/src/server.js'),
-        schema.Folder('own/src/asdf', [
-          schema.File('own/src/asdf/file3.js'),
+      schema.File('owned/file1.js'),
+      schema.Folder('owned/src', [
+        schema.File('owned/src/server.js'),
+        schema.Folder('owned/src/asdf', [
+          schema.File('owned/src/asdf/file3.js'),
         ]),
       ]),
-      schema.File('own/file2.js'),
+      schema.File('owned/file2.js'),
     ],
+    treeWidth: 250,
   }),
 });
 
