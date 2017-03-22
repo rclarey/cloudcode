@@ -2,7 +2,9 @@
 
 import React from 'react';
 import BottomBar from 'components/workspace/BottomBar.jsx';
+import ContextMenu from 'components/workspace/ContextMenu.jsx';
 import Editor from 'components/workspace/Editor.jsx';
+import Modal from 'components/workspace/Modal.jsx';
 import TabBar from 'components/workspace/TabBar.jsx';
 import TreeView from 'components/workspace/TreeView.jsx';
 
@@ -24,6 +26,16 @@ const Workspace = React.createClass({
         ).isRequired,
         bar: React.PropTypes.shape({}).isRequired,
         treeWidth: React.PropTypes.number.isRequired,
+        contextMenu: React.PropTypes.shape({
+          holds: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+              name: React.PropTypes.string.isRequired,
+              func: React.PropTypes.func.isRequired,
+            }).isRequired,
+          ),
+          x: React.PropTypes.number.isRequired,
+          y: React.PropTypes.number.isRequired,
+        }),
       }).isRequired,
     }).isRequired,
     hub: React.PropTypes.shape({
@@ -34,21 +46,19 @@ const Workspace = React.createClass({
     return this.props.store.workspace !== nextProps.store.workspace;
   },
   render() {
-    const treeProps = {
-      tree: this.props.store.workspace.tree,
-      hub: this.props.hub,
-      width: this.props.store.workspace.treeWidth,
-    };
+    const ws = this.props.store.workspace;
     return (
       <div id="workspace">
         <div id="workspace-main">
-          <TreeView {...treeProps} />
+          <TreeView tree={ws.tree} width={ws.treeWidth} hub={this.props.hub} />
           <div id="workspace-main-centre">
-            <TabBar tabs={this.props.store.workspace.tabs} hub={this.props.hub} />
+            <TabBar tabs={ws.tabs} hub={this.props.hub} />
             <Editor />
           </div>
         </div>
         <BottomBar />
+        {ws.contextMenu ? <ContextMenu {...ws.contextMenu} hub={this.props.hub} /> : null}
+        {ws.modal ? <Modal {...ws.modal} hub={this.props.hub} /> : null}
       </div>
     );
   },

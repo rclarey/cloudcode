@@ -1,9 +1,9 @@
 // src/components/workspace/Folder.jsx
 
 import React from 'react';
-import helpers from 'components/workspace/helpers.jsx';
+import { renderNode } from 'helpers.jsx';
 
-const Tree = React.createClass({
+const Folder = React.createClass({
   propTypes: {
     src: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
@@ -26,8 +26,23 @@ const Tree = React.createClass({
     return dSrc || dHolds || dName || dOpen;
   },
 
-  handleOpen() {
-    this.props.hub.trigger('folder:open', this.props.src);
+  handleContextMenu(e) {
+    this.props.hub.trigger('contextmenu:open', {
+      type: 'folder',
+      src: this.props.src,
+      x: e.clientX,
+      y: e.clientY,
+    });
+    e.stopPropagation();
+    e.preventDefault();
+  },
+
+  handleClick(e) {
+    if (e.which && e.which === 3) {
+      this.handleContextMenu(e);
+    } else {
+      this.props.hub.trigger('folder:toggle', this.props.src);
+    }
   },
 
   render() {
@@ -35,14 +50,14 @@ const Tree = React.createClass({
     if (this.props.open) {
       holds = (
         <ul className="tree-folder-holds">
-          {this.props.holds.map(node => helpers.renderTreeNode(node, this.props.hub))}
+          {this.props.holds.map(node => renderNode(node, this.props.hub))}
         </ul>
       );
     }
     const innerClass = `tree-folder-inner ${this.props.open ? 'open' : 'closed'}`;
     return (
-      <li className="tree-folder">
-        <div className={innerClass} onClick={this.handleOpen}>
+      <li className="tree-folder" onContextMenu={this.handleContextMenu}>
+        <div className={innerClass} onClick={this.handleClick}>
           <span className="tree-folder-name">{this.props.name}</span>
         </div>
         {holds}
@@ -52,4 +67,4 @@ const Tree = React.createClass({
 
 });
 
-export default Tree;
+export default Folder;

@@ -25,8 +25,8 @@ const TreeView = React.createClass({
   render() {
     return (
       <div id="workspace-treeview" style={{ width: `${this.props.width}px` }}>
-        <Tree title="Owned" tree={this.props.tree.own} hub={this.props.hub} />
-        <Tree title="Shared" tree={this.props.tree.shared} hub={this.props.hub} />
+        <Tree {...this.props.tree.own} hub={this.props.hub} />
+        <Tree {...this.props.tree.shared} hub={this.props.hub} />
         <ResizeHandle hub={this.props.hub} />
       </div>
     );

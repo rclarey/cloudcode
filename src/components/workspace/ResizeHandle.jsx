@@ -13,7 +13,7 @@ const ResizeHandle = React.createClass({
     return false;
   },
 
-  resize(event) {
+  handleResize(event) {
     let start = event.clientX;
     const drag = (e) => {
       this.props.hub.trigger('tree:resize', e.clientX - start);
@@ -22,6 +22,7 @@ const ResizeHandle = React.createClass({
     const stop = () => {
       document.documentElement.removeEventListener('mousemove', drag);
       document.documentElement.removeEventListener('mouseup', stop);
+      this.props.hub.trigger('tree:resize:clamp');
     };
     document.documentElement.addEventListener('mousemove', drag);
     document.documentElement.addEventListener('mouseup', stop);
@@ -29,7 +30,7 @@ const ResizeHandle = React.createClass({
 
   render() {
     return (
-      <div className="resize-handle" onMouseDown={this.resize} />
+      <div className="resize-handle" onMouseDown={this.handleResize} />
     );
   },
 });

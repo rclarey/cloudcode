@@ -9,8 +9,8 @@ module.exports = {
   ],
   resolve: {
     root: [
-      path.resolve('./src')
-    ]
+      path.resolve('./src'),
+    ],
   },
   output: {
     path: `${__dirname}/build/assets`,
