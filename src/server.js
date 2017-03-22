@@ -22,7 +22,7 @@ const port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000;
 mongoose.connect(dbConfig.url); // connect to the db
 
 // setup express
-app.use(morgan('dev')); // log every request to the console
+app.use(morgan(':date[clf] :method :url :status :response-time ms - :res[content-length]')); // log every request to the console
 app.use(cookieParser()); // read cookies
 app.use(bodyParser()); // get information from html forms
 
