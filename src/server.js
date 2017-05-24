@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const morgan = require('morgan');
 const serveStatic = require('serve-static');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -21,7 +22,7 @@ const port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000;
 mongoose.connect(dbConfig.url); // connect to the db
 
 // setup express
-app.use(morgan('dev')); // log every request to the console
+app.use(morgan(':date[clf] :method :url :status :response-time ms - :res[content-length]')); // log every request to the console
 app.use(cookieParser()); // read cookies
 app.use(bodyParser()); // get information from html forms
 
@@ -29,7 +30,8 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 
 // for passport
-app.use(session(sessionConfig(app)));
+const store = new MongoStore({ mongooseConnection: mongoose.connection });
+app.use(session(sessionConfig(app, store)));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 passportConfig(passport); // pass passport for configuration

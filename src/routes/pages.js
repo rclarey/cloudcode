@@ -1,11 +1,12 @@
 // src/routes/pages.js
 
 const middleware = require('../middleware.js');
+
 const isLoggedIn = middleware.isLoggedIn;
 const isReactRoute = middleware.isReactRoute;
+const routeSigninSuccess = middleware.routeSigninSuccess;
 
 module.exports = function route(app, passport) {
-
   // Home page
   app.get('/', (request, response) => {
     response.render('index');
@@ -13,14 +14,14 @@ module.exports = function route(app, passport) {
 
   // Sign in
   app.get('/signin', (request, response) => {
-    response.render('signin', { message: request.flash('signinMessage') });
+    const path = request.query.r || '/editor';
+    response.render('signin', { redirect: path, message: request.flash('signinMessage') });
   });
 
   app.post('/signin', passport.authenticate('signin', {
-    successRedirect: '/app',
     failureRedirect: '/signin',
     failureFlash: true,
-  }));
+  }), routeSigninSuccess);
 
   // Sign up
   app.get('/signup', (request, response) => {
@@ -43,5 +44,4 @@ module.exports = function route(app, passport) {
   app.get('*', isReactRoute, isLoggedIn, (request, response) => {
     response.render('app', { user: request.user.auth.username });
   });
-
 };
