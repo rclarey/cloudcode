@@ -4,20 +4,22 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: [
-    './src/index.jsx',
-  ],
+  entry: {
+    app: './src/app.jsx',
+    anon: './src/anon.jsx',
+  },
   resolve: {
-    root: [
+    modules: [
       path.resolve('./src'),
+      'node_modules',
     ],
   },
   output: {
     path: `${__dirname}/build/assets`,
-    filename: 'bundle.js',
+    filename: '[name].js',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -29,11 +31,12 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.LoaderOptionsPlugin({ minimize: true }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
+    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }),
   ],
 };
