@@ -3,8 +3,8 @@
 import React from 'react';
 import File from 'components/workspace/File.jsx';
 import Folder from 'components/workspace/Folder.jsx';
-import freezer from 'freezer/freezer.js';
-import schema from 'freezer/schema.js';
+import freezer from 'freezer/app/freezer.js';
+import schema from 'freezer/app/schema.js';
 
 export function fetchNode(src) {
   const path = src.split('/');
@@ -78,7 +78,7 @@ function placeInTree(parentPath, node) {
 
 // exports
 export function normalizePath(path) {
-  return path.replace(/[^\w\/\-\s.]+/g, '').replace(/(?:\s*?\/+\s*)+/g, '/').replace(/\/\s*$/g, '');
+  return path.replace(/[^\w/\-\s.]+/g, '').replace(/(?:\s*?\/+\s*)+/g, '/').replace(/\/\s*$/g, '');
 }
 
 export function renderNode(node, hub) {
@@ -112,7 +112,7 @@ export function moveNode(src, dest) {
 export function deleteNode(src) {
   const parent = fetchNode(src.slice(0, src.lastIndexOf('/')));
   const name = src.slice(src.lastIndexOf('/') + 1);
-  const confirmed = confirm(`Are you sure you want to delete ${name}?`);
+  const confirmed = confirm(`Are you sure you want to delete ${name}?`); // eslint-disable-line
   if (confirmed) {
     const ind = parent.holds.findIndex(x => x.name === name);
     parent.holds.splice(ind, 1);

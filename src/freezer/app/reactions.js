@@ -1,10 +1,9 @@
 // src/freezer/reactions.js
 
-import schema from 'freezer/schema.js';
+import schema from 'freezer/app/schema.js';
 import { createModal, createNode, fetchNode, dupeNode, moveNode, deleteNode } from 'helpers.jsx';
 
 export default function reactions(freezer) {
-
   // Context Menu
   freezer.on('contextmenu:close', () => {
     freezer.get().workspace.set({ contextMenu: null });

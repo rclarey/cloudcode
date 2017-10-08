@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
+  cache: true,
   entry: {
     app: './src/app.jsx',
     anon: './src/anon.jsx',
@@ -29,6 +30,15 @@ module.exports = {
         },
       },
     ],
+  },
+  devtool: 'sourcemap',
+  performance: {
+    hints: 'warning',
+  },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    'react-router': 'ReactRouter',
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({ minimize: true }),

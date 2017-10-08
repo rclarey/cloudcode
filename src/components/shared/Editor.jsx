@@ -4,7 +4,7 @@ import React from 'react';
 
 const Editor = React.createClass({
   componentDidMount() {
-    CodeMirror(document.querySelector('#workspace-editor'), {
+    CodeMirror(document.querySelector('#editor'), {
       lineNumbers: true,
       scrollbarStyle: 'null',
       autofocus: true,
@@ -12,7 +12,7 @@ const Editor = React.createClass({
   },
 
   render() {
-    return (<div id="workspace-editor" />);
+    return (<div id="editor" className="editor" />);
   },
 
 });

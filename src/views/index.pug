@@ -2,7 +2,11 @@ extends base.pug
 
 append head
   title Index Page
+  +js('//unpkg.com/unfetch/dist/unfetch.umd.js')
 append content
   h1 Index Page
   a(href='/signin').btn.btn-default Sign in
   a(href='/signup').btn.btn-default Sign up
+  a(href='#')#create-anon Create new file
+  - var code = `(()=>{const l=document.getElementById('create-anon');l.addEventListener('click',()=>{unfetch('/create-anon').then(r=>{r.json().then(j=>{if(!j.error){window.location.replace(\`/a/\${j.id}\`);}});});});})();`;
+  script !{code}

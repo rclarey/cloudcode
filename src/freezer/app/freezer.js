@@ -1,8 +1,8 @@
-// src/freezer/freezer.js
+// src/freezer/app/freezer.js
 
 import Freezer from 'freezer-js';
-import schema from 'freezer/schema.js';
-import reactions from 'freezer/reactions.js';
+import schema from 'freezer/app/schema.js';
+import reactions from 'freezer/app/reactions.js';
 
 const freezer = new Freezer({
   user: schema.User('russ'),

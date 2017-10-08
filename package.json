@@ -6,7 +6,7 @@
     "start": "cd build && node server",
     "build": "say building & webpack & npm run sass & npm run move & wait; say built && npm run start",
     "sass": "sass --style=compressed --sourcemap=none --no-cache  src/scss/main.scss build/assets/main.css && sass --style=compressed --sourcemap=none --no-cache  src/scss/app.scss build/assets/app.css && cleancss -o build/assets/main.css build/assets/main.css && cleancss -o build/assets/app.css build/assets/app.css",
-    "move": "for f in src/*; do if [ $f != src/components ]&&[ $f != src/redux ]&&[ $f != src/scss ]&&[ $f != src/index.jsx ]; then cp -rf $f build/; fi done; cp -rf config/ build/config/; cp -rf vendor/ build/assets; cp -f package.json build/"
+    "move": "for f in src/{server.js,middleware.js,views,routes,models}; do cp -rf $f build/; done; cp -rf config/ build/config/; cp -rf vendor/ build/assets; cp -f package.json build/"
   },
   "dependencies": {
     "bcrypt-nodejs": "latest",
@@ -30,6 +30,7 @@
     "react-dom": "^15.4.2",
     "react-router": "^3.0.1",
     "serve-static": "^1.11.1",
+    "shortid": "^2.2.8",
     "socket.io": "^1.7.2",
     "whatwg-fetch": "^2.0.2"
   },

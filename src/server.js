@@ -26,8 +26,8 @@ app.use(morgan(':date[clf] :method :url :status :response-time ms - :res[content
 app.use(cookieParser()); // read cookies
 app.use(bodyParser()); // get information from html forms
 
-app.set('views', './views');
 app.set('view engine', 'pug');
+app.set('views', './views');
 
 // for passport
 const store = new MongoStore({ mongooseConnection: mongoose.connection });
@@ -40,8 +40,9 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // routing
 app.use(serveStatic('./'));
 require('./routes/api.js')(app, passport);
-require('./routes/pages.js')(app, passport);
+require('./routes/pages.js')(app);
 
 app.listen(port);
+/* eslint-disable no-console */
 console.log(app.get('env'));
 console.log('✔ Express server listening on port', port);

@@ -4,9 +4,9 @@ const middleware = require('../middleware.js');
 
 const isLoggedIn = middleware.isLoggedIn;
 const isReactRoute = middleware.isReactRoute;
-const routeSigninSuccess = middleware.routeSigninSuccess;
+const isPublicFile = middleware.isPublicFile;
 
-module.exports = function route(app, passport) {
+module.exports = function route(app) {
   // Home page
   app.get('/', (request, response) => {
     response.render('index');
@@ -18,26 +18,20 @@ module.exports = function route(app, passport) {
     response.render('signin', { redirect: path, message: request.flash('signinMessage') });
   });
 
-  app.post('/signin', passport.authenticate('signin', {
-    failureRedirect: '/signin',
-    failureFlash: true,
-  }), routeSigninSuccess);
-
   // Sign up
   app.get('/signup', (request, response) => {
     response.render('signup', { message: request.flash('signupMessage') });
   });
 
-  app.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/app',
-    failureRedirect: '/signup',
-    failureFlash: true,
-  }));
-
   // Sign out
   app.get('/signout', (request, response) => {
     request.logout();
     response.redirect('/');
+  });
+
+  // Anon app
+  app.get('/a/:id', isPublicFile, (request, response) => {
+    response.render('anon');
   });
 
   // Editor app

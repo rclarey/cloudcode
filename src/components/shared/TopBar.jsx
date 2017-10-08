@@ -1,4 +1,4 @@
-// src/components/TopBar.jsx
+// src/components/shared/TopBar.jsx
 
 import React from 'react';
 
