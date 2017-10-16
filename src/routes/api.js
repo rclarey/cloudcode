@@ -18,13 +18,13 @@ module.exports = function route(app, passport) {
   }));
 
   // Create a new anonymous document
-  app.get('/create-anon', (request, response) => {
+  app.get('/new', (request, response) => {
     const doc = new TreeNode({
-      contents: '',
+      contents: [{ text: '', hash: 0 }],
       isFile: true,
     });
     doc.setShared(true)
-      .then(savedDoc => response.json({ id: savedDoc.shareId }))
+      .then(savedDoc => response.redirect(`/a/${savedDoc.shareId}`))
       .catch(error => response.json({ error }));
   });
 };

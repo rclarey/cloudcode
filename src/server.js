@@ -1,5 +1,5 @@
 // server.js
-const express = require('express');
+const app = require('express')();
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -16,8 +16,10 @@ const dbConfig = require('./config/db.js');
 const passportConfig = require('./config/passport.js');
 const sessionConfig = require('./config/session.js');
 
-const app = express();
 const port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000;
+
+const server = app.listen(port);
+const io = require('socket.io').listen(server);
 
 mongoose.connect(dbConfig.url); // connect to the db
 
@@ -42,7 +44,9 @@ app.use(serveStatic('./'));
 require('./routes/api.js')(app, passport);
 require('./routes/pages.js')(app);
 
-app.listen(port);
+// socket,io
+require('./sockets.js')(io);
+
 /* eslint-disable no-console */
 console.log(app.get('env'));
 console.log('✔ Express server listening on port', port);

@@ -3,11 +3,19 @@
 const mongoose = require('mongoose');
 const shortid = require('shortid');
 
+const line = mongoose.Schema({
+  hash: { type: Number },
+  text: { type: String },
+}, { _id: false });
+
 const treeNode = mongoose.Schema({
   src: { type: String },
   name: { type: String },
   shareId: { type: String },
-  contents: { type: String },
+  contents: {
+    type: [line],
+    default: undefined,
+  },
   isFile: { type: Boolean, required: true },
   isShared: { type: Boolean, default: false },
   children: {
