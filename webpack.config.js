@@ -1,17 +1,15 @@
-// webpack.config.js
-
 const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
   cache: true,
   entry: {
-    app: './src/app.jsx',
-    anon: './src/anon.jsx',
+    app: './src/client/app.jsx',
+    anon: './src/client/anon.jsx',
   },
   resolve: {
     modules: [
-      path.resolve('./src'),
+      path.resolve('./src/client'),
       'node_modules',
     ],
   },

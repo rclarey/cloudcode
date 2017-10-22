@@ -5,8 +5,8 @@
   "scripts": {
     "start": "cd build && node server",
     "build": "webpack & npm run sass & npm run move & wait; npm run start",
-    "sass": "sass --style=compressed --sourcemap=none --no-cache  src/scss/main.scss build/assets/main.css && sass --style=compressed --sourcemap=none --no-cache  src/scss/app.scss build/assets/app.css && cleancss -o build/assets/main.css build/assets/main.css && cleancss -o build/assets/app.css build/assets/app.css",
-    "move": "for f in src/{server.js,sockets.js,middleware.js,views,routes,models}; do cp -rf $f build/; done; cp -rf config/ build/config/; cp -rf vendor/ build/assets; cp -f package.json build/"
+    "sass": "sass --style=compressed --sourcemap=none --no-cache  src/client/scss/main.scss build/assets/main.css && sass --style=compressed --sourcemap=none --no-cache  src/client/scss/app.scss build/assets/app.css && cleancss -o build/assets/main.css build/assets/main.css && cleancss -o build/assets/app.css build/assets/app.css",
+    "move": "for f in src/server/*; do cp -rf $f build/; done; cp -rf config/ build/config/; cp -rf vendor/ build/assets; cp -f package.json build/"
   },
   "dependencies": {
     "bcrypt-nodejs": "latest",
