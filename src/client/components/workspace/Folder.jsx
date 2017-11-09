@@ -1,16 +1,14 @@
 import React from 'react';
-import { renderNode } from 'helpers.jsx';
+import { renderNode } from 'utils/workspace.jsx';
 
 const Folder = React.createClass({
   propTypes: {
     src: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     open: React.PropTypes.bool.isRequired,
-    holds: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        file: React.PropTypes.bool.isRequired,
-      }).isRequired,
-    ).isRequired,
+    holds: React.PropTypes.arrayOf(React.PropTypes.shape({
+      file: React.PropTypes.bool.isRequired,
+    }).isRequired).isRequired,
     hub: React.PropTypes.shape({
       trigger: React.PropTypes.func.isRequired,
     }).isRequired,

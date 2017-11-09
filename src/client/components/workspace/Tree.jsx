@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderNode } from 'helpers.jsx';
+import { renderNode } from 'utils/workspace.jsx';
 
 const Tree = React.createClass({
   propTypes: {

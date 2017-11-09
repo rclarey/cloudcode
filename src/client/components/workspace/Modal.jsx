@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchNode, normalizePath } from 'helpers.jsx';
+import { fetchNode, normalizePath } from 'utils/workspace.jsx';
 
 const Modal = React.createClass({
   propTypes: {

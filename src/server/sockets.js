@@ -26,6 +26,7 @@ module.exports = (io) => {
           from: { line: 0, ch: 0 },
           to: { line: 0, ch: 0 },
           text: node.contents.map(line => line.text),
+          clear: true,
         };
         socket.emit('update', change);
       })

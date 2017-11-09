@@ -1,12 +1,16 @@
-// src/models/treeNode.js
-
 const mongoose = require('mongoose');
 const shortid = require('shortid');
+const strHash = require('../helpers.js').strHash;
 
 const line = mongoose.Schema({
   hash: { type: Number },
   text: { type: String },
 }, { _id: false });
+
+line.pre('save', function (next) {
+  this.hash = strHash(this.text);
+  next();
+});
 
 const treeNode = mongoose.Schema({
   src: { type: String },
@@ -31,9 +35,9 @@ treeNode.methods = {
     return this.model('TreeNode')
       .insertOne({ name, isFile, src: `${this.src}/${name}` })
       .then(node => this.model('TreeNode').updateOne(
-          { _id: this._id },
-          { $addToSet: { children: [node._id] } } // eslint-disable-line comma-dangle
-        ));
+        { _id: this._id },
+        { $addToSet: { children: [node._id] } } // eslint-disable-line comma-dangle
+      ));
   },
   removeChild() {},
   gatherChildren() {},
