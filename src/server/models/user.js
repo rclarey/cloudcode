@@ -8,10 +8,18 @@ const user = mongoose.Schema({
   },
 });
 
-// Methods
+// methods
 user.methods = {
-  generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync()); },
-  validPassword(password) { return bcrypt.compareSync(password, this.auth.password); },
+  validPassword(password) {
+    return bcrypt.compareSync(password, this.auth.password);
+  },
+};
+
+// statics
+user.statics = {
+  generateHash(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync());
+  },
 };
 
 module.exports = mongoose.model('User', user);

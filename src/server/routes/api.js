@@ -1,7 +1,5 @@
-// src/routes/api.js
-
-const routeSigninSuccess = require('../middleware.js').routeSigninSuccess;
-const TreeNode = require('../models/treeNode.js');
+const routeSigninSuccess = require('../middleware').routeSigninSuccess;
+const TreeNode = require('../models/treeNode');
 
 module.exports = function route(app, passport) {
   // Sign in
@@ -20,7 +18,7 @@ module.exports = function route(app, passport) {
   // Create a new anonymous document
   app.get('/new', (request, response) => {
     const doc = new TreeNode({
-      contents: [{ text: '', hash: 0 }],
+      contents: [{ text: '' }],
       isFile: true,
     });
     doc.setShared(true)

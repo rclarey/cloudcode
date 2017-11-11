@@ -1,9 +1,9 @@
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/user.js');
+const User = require('../models/user');
 
 module.exports = (passport) => {
   // serialize/deserialize user for session
-  passport.serializeUser((user, done) => { done(null, user.id); });
+  passport.serializeUser((user, done) => done(null, user.id));
 
   passport.deserializeUser((id, done) => {
     User.findOne({ _id: id }, (error, user) => { done(error, user); });
@@ -27,11 +27,14 @@ module.exports = (passport) => {
           if (user) {
             done(null, false, request.flash('signupMessage', 'That username is already taken.'));
           } else {
-            const newUser = new User();
-            newUser.auth.username = username;
-            newUser.auth.password = newUser.generateHash(password);
-            newUser.save()
-              .then(() => done(null, newUser));
+            const newUser = new User({
+              auth: {
+                username,
+                password: User.generateHash(password),
+              },
+            });
+
+            newUser.save().then(() => done(null, newUser));
           }
         });
     });

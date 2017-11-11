@@ -1,6 +1,4 @@
-// src/routes/pages.js
-
-const middleware = require('../middleware.js');
+const middleware = require('../middleware');
 
 const isLoggedIn = middleware.isLoggedIn;
 const isReactRoute = middleware.isReactRoute;
@@ -15,7 +13,10 @@ module.exports = function route(app) {
   // Sign in
   app.get('/signin', (request, response) => {
     const path = request.query.r || '/editor';
-    response.render('signin', { redirect: path, message: request.flash('signinMessage') });
+    response.render('signin', {
+      redirect: path,
+      message: request.flash('signinMessage'),
+    });
   });
 
   // Sign up

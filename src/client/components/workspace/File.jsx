@@ -1,19 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-const File = React.createClass({
-  propTypes: {
-    src: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired,
-    // holds: React.PropTypes.string.isRequired,
-    // share: React.PropTypes.bool.isRequired,
-    hub: React.PropTypes.shape({
-      trigger: React.PropTypes.func.isRequired,
-    }).isRequired,
-  },
-
+class File extends React.Component {
   shouldComponentUpdate(nextProps) {
     return this.props.name !== nextProps.name;
-  },
+  }
 
   handleContextMenu(e) {
     this.props.hub.trigger('contextmenu:open', {
@@ -22,15 +13,16 @@ const File = React.createClass({
       x: e.clientX,
       y: e.clientY,
     });
+    // prevent the browser's context menu
     e.stopPropagation();
     e.preventDefault();
-  },
+  }
 
   handleClick(e) {
     if (e.which && e.which === 3) {
       this.handleContextMenu(e);
     }
-  },
+  }
 
   render() {
     return (
@@ -38,7 +30,17 @@ const File = React.createClass({
         <span className="tree-file-name">{this.props.name}</span>
       </li>
     );
-  },
-});
+  }
+}
+
+File.propTypes = {
+  src: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  // holds: PropTypes.string.isRequired,
+  // share: PropTypes.bool.isRequired,
+  hub: PropTypes.shape({
+    trigger: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default File;

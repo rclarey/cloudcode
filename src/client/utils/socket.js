@@ -5,7 +5,8 @@ const stripUpdate = ({ from, text, to }) => ({
 });
 
 const mergeUpdate = (og, nu) => {
-  // note that both of these changes are single line AND they are both on the same line
+  // note that both of these changes are single line
+  // AND they are both on the same line
   const ogEnd = og.from.ch + og.text[0].length;
   const nuEnd = nu.from.ch + nu.text[0].length;
 
@@ -44,7 +45,7 @@ const changeThrottler = (socket) => {
 
   return (_, obj) => {
     // if change recieved via websocket from another client
-    if (obj.origin === 'ws') { return; }
+    if (obj.origin === 'ws' || obj.origin === 'setValue') { return; }
     if (obj.text.length > 1 || obj.removed.length > 1) {
       // if currently throttling a change, send it first
       if (change) {
@@ -90,7 +91,8 @@ const updateHandler = doc => (change) => {
   }
 };
 
-const connectionStateHandler = hub => state => reason => hub.trigger('connection:update', state, reason);
+const connectionStateHandler = hub => state => reason =>
+  hub.trigger('connection:update', state, reason);
 
 const initSocket = (id, cm, hub) => {
   const doc = cm.getDoc();

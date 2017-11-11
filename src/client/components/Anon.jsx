@@ -1,15 +1,13 @@
 import React from 'react';
-import TopBar from 'components/shared/TopBar.jsx';
-import Editor from 'components/shared/Editor.jsx';
-import freezer from 'freezer/app/freezer.js';
 
-const App = React.createClass({
+import TopBar from 'components/shared/TopBar';
+import Editor from 'components/shared/Editor';
+import freezer from 'freezer/anon';
 
+class Anon extends React.Component {
   componentDidMount() {
-    freezer.on('update', () => {
-      this.forceUpdate();
-    });
-  },
+    freezer.on('update', () => this.forceUpdate());
+  }
 
   render() {
     return (
@@ -18,7 +16,7 @@ const App = React.createClass({
         <Editor mode={freezer.get().mode} />
       </div>
     );
-  },
-});
+  }
+}
 
-export default App;
+export default Anon;

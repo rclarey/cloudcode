@@ -1,26 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { renderNode } from 'utils/workspace.jsx';
 
-const Folder = React.createClass({
-  propTypes: {
-    src: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired,
-    open: React.PropTypes.bool.isRequired,
-    holds: React.PropTypes.arrayOf(React.PropTypes.shape({
-      file: React.PropTypes.bool.isRequired,
-    }).isRequired).isRequired,
-    hub: React.PropTypes.shape({
-      trigger: React.PropTypes.func.isRequired,
-    }).isRequired,
-  },
+import { renderNode } from 'utils/workspace';
 
+class Folder extends React.Component {
   shouldComponentUpdate(nextProps) {
     const dSrc = this.props.src !== nextProps.src;
     const dHolds = this.props.holds !== nextProps.holds;
     const dName = this.props.name !== nextProps.name;
     const dOpen = this.props.open !== nextProps.open;
     return dSrc || dHolds || dName || dOpen;
-  },
+  }
 
   handleContextMenu(e) {
     this.props.hub.trigger('contextmenu:open', {
@@ -29,9 +19,10 @@ const Folder = React.createClass({
       x: e.clientX,
       y: e.clientY,
     });
+    // prevent the browser's context menu
     e.stopPropagation();
     e.preventDefault();
-  },
+  }
 
   handleClick(e) {
     if (e.which && e.which === 3) {
@@ -39,7 +30,7 @@ const Folder = React.createClass({
     } else {
       this.props.hub.trigger('folder:toggle', this.props.src);
     }
-  },
+  }
 
   render() {
     let holds;
@@ -50,17 +41,28 @@ const Folder = React.createClass({
         </ul>
       );
     }
-    const innerClass = `tree-folder-inner ${this.props.open ? 'open' : 'closed'}`;
+    const klass = `tree-folder-inner ${this.props.open ? 'open' : 'closed'}`;
     return (
       <li className="tree-folder" onContextMenu={this.handleContextMenu}>
-        <div className={innerClass} onClick={this.handleClick}>
+        <div className={klass} onClick={this.handleClick}>
           <span className="tree-folder-name">{this.props.name}</span>
         </div>
         {holds}
       </li>
     );
-  },
+  }
+}
 
-});
+Folder.propTypes = {
+  src: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  holds: PropTypes.arrayOf(React.PropTypes.shape({
+    file: PropTypes.bool.isRequired,
+  }).isRequired).isRequired,
+  hub: PropTypes.shape({
+    trigger: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Folder;

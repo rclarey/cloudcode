@@ -11,9 +11,9 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-const dbConfig = require('./config/db.js');
-const passportConfig = require('./config/passport.js');
-const sessionConfig = require('./config/session.js');
+const dbConfig = require('./config/db');
+const passportConfig = require('./config/passport');
+const sessionConfig = require('./config/session');
 
 const port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000;
 
@@ -23,7 +23,7 @@ const io = require('socket.io').listen(server);
 mongoose.connect(dbConfig.url); // connect to the db
 
 // setup express
-app.use(morgan(':date[clf] :method :url :status :response-time ms - :res[content-length]')); // log every request to the console
+app.use(morgan(':date[clf] :method :url :status :response-time ms - :res[content-length]'));
 app.use(cookieParser()); // read cookies
 app.use(bodyParser()); // get information from html forms
 
@@ -40,11 +40,11 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routing
 app.use(serveStatic('./'));
-require('./routes/api.js')(app, passport);
-require('./routes/pages.js')(app);
+require('./routes/api')(app, passport);
+require('./routes/pages')(app);
 
 // socket,io
-require('./sockets.js')(io);
+require('./sockets')(io);
 
 /* eslint-disable no-console */
 console.log(app.get('env'));

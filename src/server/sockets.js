@@ -1,25 +1,27 @@
-const TreeNode = require('./models/treeNode.js');
+const TreeNode = require('./models/treeNode');
 
-const applyChange = (arr, change) => {
+const applyChange = (contents, change) => {
   // removal and extraction of pre and post text
   const n = change.from.line;
   const m = change.to.line;
-  const pre = arr[n].text.slice(0, change.from.ch);
-  const post = arr[m].text.slice(change.to.ch);
-  arr.splice(n, (m - n) + 1);
+  const pre = contents[n].text.slice(0, change.from.ch);
+  const post = contents[m].text.slice(change.to.ch);
+  contents.splice(n, (m - n) + 1);
+
   // addition
   const lines = change.text.slice();
   lines[0] = `${pre}${lines[0]}`;
   lines[lines.length - 1] += post;
-  const decorated = lines.map(text => ({ text, hash: 0 }));
-  arr.splice(n, lines.length, ...decorated);
-  return arr;
+  const objectified = lines.map(text => ({ text }));
+  contents.splice(n, lines.length, ...objectified);
+  return contents;
 };
 
 module.exports = (io) => {
   io.on('connection', (socket) => {
-    // join room & send contents of document
+    // join room
     socket.join(socket.handshake.query.room);
+    // find and send contents of the document
     TreeNode.findOne({ shareId: socket.handshake.query.room }).exec()
       .then((node) => {
         const change = {
@@ -28,6 +30,7 @@ module.exports = (io) => {
           text: node.contents.map(line => line.text),
           clear: true,
         };
+
         socket.emit('update', change);
       })
       .catch((error) => {
@@ -39,6 +42,7 @@ module.exports = (io) => {
         .then((node) => {
           const contents = applyChange(node.contents, change);
           node.set({ contents });
+
           return node.save();
         })
         .then(() => {

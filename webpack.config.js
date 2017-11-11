@@ -8,6 +8,7 @@ module.exports = {
     anon: './src/client/anon.jsx',
   },
   resolve: {
+    extensions: ['.js', '.jsx'],
     modules: [
       path.resolve('./src/client'),
       'node_modules',
@@ -24,7 +25,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react'],
+          presets: ['env', 'react'],
+          plugins: ['transform-object-rest-spread'],
         },
       },
     ],
@@ -45,6 +47,11 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+      sourceMap: true,
+    }),
   ],
 };

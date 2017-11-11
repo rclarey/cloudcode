@@ -1,22 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { renderNode } from 'utils/workspace.jsx';
 
-const Tree = React.createClass({
-  propTypes: {
-    src: React.PropTypes.string.isRequired,
-    holds: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        file: React.PropTypes.bool.isRequired,
-      }).isRequired,
-    ).isRequired,
-    hub: React.PropTypes.shape({
-      trigger: React.PropTypes.func.isRequired,
-    }).isRequired,
-  },
+import { renderNode } from 'utils/workspace';
 
+class Tree extends React.Component {
   shouldComponentUpdate(nextProps) {
     return this.props.holds !== nextProps.holds;
-  },
+  }
 
   handleContextMenu(e) {
     this.props.hub.trigger('contextmenu:open', {
@@ -27,27 +17,44 @@ const Tree = React.createClass({
     });
     e.stopPropagation();
     e.preventDefault();
-  },
+  }
 
   handleClick(e) {
     if (e.which && e.which === 3) {
       this.handleContextMenu(e);
     }
-  },
+  }
 
   render() {
     const s = this.props.src;
+    const treeProps = {
+      className: 'tree',
+      onContextMenu: this.handleContextMenu,
+      onClick: this.handleClick,
+    };
+
     return (
-      <div className="tree" onContextMenu={this.handleContextMenu} onClick={this.handleClick}>
-        <span className="tree-title">{`${s[0].toUpperCase()}${s.substr(1)}`}</span>
+      <div {...treeProps}>
+        <span className="tree-title">
+          {`${s[0].toUpperCase()}${s.substr(1)}`}
+        </span>
         <hr className="tree-title-divider" />
         <ul className="tree-folder-holds">
           {this.props.holds.map(node => renderNode(node, this.props.hub))}
         </ul>
       </div>
     );
-  },
+  }
+}
 
-});
+Tree.propTypes = {
+  src: PropTypes.string.isRequired,
+  holds: PropTypes.arrayOf(PropTypes.shape({
+    file: PropTypes.bool.isRequired,
+  }).isRequired).isRequired,
+  hub: PropTypes.shape({
+    trigger: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Tree;

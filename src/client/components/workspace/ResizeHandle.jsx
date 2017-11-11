@@ -1,15 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-const ResizeHandle = React.createClass({
-  propTypes: {
-    hub: React.PropTypes.shape({
-      trigger: React.PropTypes.func.isRequired,
-    }).isRequired,
-  },
-
+class ResizeHandle extends React.Component {
   shouldComponentUpdate() {
     return false;
-  },
+  }
 
   handleResize(event) {
     let start = event.clientX;
@@ -24,13 +19,19 @@ const ResizeHandle = React.createClass({
     };
     document.documentElement.addEventListener('mousemove', drag);
     document.documentElement.addEventListener('mouseup', stop);
-  },
+  }
 
   render() {
     return (
       <div className="resize-handle" onMouseDown={this.handleResize} />
     );
-  },
-});
+  }
+}
+
+ResizeHandle.propTypes = {
+  hub: PropTypes.shape({
+    trigger: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default ResizeHandle;

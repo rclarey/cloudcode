@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-const LeftBar = React.createClass({
+class LeftBar extends React.Component {
+  componentDidMount() {}
 
   render() {
     return (<div id="settings-leftbar">LeftBar</div>);
-  },
-
-});
+  }
+}
 
 LeftBar.propTypes = {};
 

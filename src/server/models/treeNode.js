@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const shortid = require('shortid');
-const strHash = require('../helpers.js').strHash;
+const strHash = require('../helpers').strHash;
 
 const line = mongoose.Schema({
   hash: { type: Number },
@@ -34,16 +34,20 @@ treeNode.methods = {
     if (this.isFile) { throw new Error('Cannot add a child to a file!'); }
     return this.model('TreeNode')
       .insertOne({ name, isFile, src: `${this.src}/${name}` })
-      .then(node => this.model('TreeNode').updateOne(
-        { _id: this._id },
-        { $addToSet: { children: [node._id] } } // eslint-disable-line comma-dangle
-      ));
+      .then(node => this.model('TreeNode')
+        .updateOne({ _id: this._id }, { $addToSet: { children: [node._id] } }));
   },
+
   removeChild() {},
+
   gatherChildren() {},
+
   setShared(isShared) {
     this.isShared = isShared;
-    if (isShared && !this.shareId) { this.shareId = shortid.generate(); }
+    if (isShared && !this.shareId) {
+      this.shareId = shortid.generate();
+    }
+
     return this.save();
   },
 };

@@ -1,7 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import LeftBar from 'components/settings/LeftBar.jsx';
 
-const Settings = React.createClass({
+import LeftBar from 'components/settings/LeftBar';
+
+class Settings extends React.Component {
+  componentDidMount() {}
 
   render() {
     return (
@@ -12,12 +15,11 @@ const Settings = React.createClass({
         </div>
       </div>
     );
-  },
-
-});
+  }
+}
 
 Settings.propTypes = {
-  children: React.PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default Settings;

@@ -1,50 +1,22 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import BottomBar from 'components/workspace/BottomBar.jsx';
-import ContextMenu from 'components/workspace/ContextMenu.jsx';
-import Editor from 'components/shared/Editor.jsx';
-import Modal from 'components/workspace/Modal.jsx';
-import TabBar from 'components/workspace/TabBar.jsx';
-import TreeView from 'components/workspace/TreeView.jsx';
 
-const Workspace = React.createClass({
-  propTypes: {
-    store: React.PropTypes.shape({
-      workspace: React.PropTypes.shape({
-        tabs: React.PropTypes.arrayOf(
-          React.PropTypes.shape({
-            active: React.PropTypes.bool.isRequired,
-          }).isRequired,
-        ).isRequired,
-        tree: React.PropTypes.arrayOf(
-          React.PropTypes.arrayOf(
-            React.PropTypes.shape({
-              file: React.PropTypes.bool.isRequired,
-            }),
-          ),
-        ).isRequired,
-        bar: React.PropTypes.shape({}).isRequired,
-        treeWidth: React.PropTypes.number.isRequired,
-        contextMenu: React.PropTypes.shape({
-          holds: React.PropTypes.arrayOf(
-            React.PropTypes.shape({
-              name: React.PropTypes.string.isRequired,
-              func: React.PropTypes.func.isRequired,
-            }).isRequired,
-          ),
-          x: React.PropTypes.number.isRequired,
-          y: React.PropTypes.number.isRequired,
-        }),
-      }).isRequired,
-    }).isRequired,
-    hub: React.PropTypes.shape({
-      trigger: React.PropTypes.func.isRequired,
-    }).isRequired,
-  },
+import BottomBar from 'components/shared/BottomBar';
+import ContextMenu from 'components/workspace/ContextMenu';
+import Editor from 'components/shared/Editor';
+import Modal from 'components/workspace/Modal';
+import TabBar from 'components/workspace/TabBar';
+import TreeView from 'components/workspace/TreeView';
+
+class Workspace extends React.Component {
   shouldComponentUpdate(nextProps) {
     return this.props.store.workspace !== nextProps.store.workspace;
-  },
+  }
+
   render() {
     const ws = this.props.store.workspace;
+    const menuProps = { ...ws.contextMenu, hub: this.props.hub };
+
     return (
       <div id="workspace">
         <div id="workspace-main">
@@ -55,11 +27,37 @@ const Workspace = React.createClass({
           </div>
         </div>
         <BottomBar />
-        {ws.contextMenu ? <ContextMenu {...ws.contextMenu} hub={this.props.hub} /> : null}
+        {ws.contextMenu ? <ContextMenu {...menuProps} /> : null}
         {ws.modal ? <Modal {...ws.modal} hub={this.props.hub} /> : null}
       </div>
     );
-  },
-});
+  }
+}
+
+Workspace.propTypes = {
+  store: PropTypes.shape({
+    workspace: PropTypes.shape({
+      tabs: PropTypes.arrayOf(PropTypes.shape({
+        active: PropTypes.bool.isRequired,
+      }).isRequired).isRequired,
+      tree: PropTypes.arrayOf(PropTypes.shape({
+        file: PropTypes.bool.isRequired,
+      })).isRequired,
+      bar: PropTypes.shape({}).isRequired,
+      treeWidth: PropTypes.number.isRequired,
+      contextMenu: PropTypes.shape({
+        holds: PropTypes.arrayOf(PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          func: PropTypes.func.isRequired,
+        }).isRequired),
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+      }),
+    }).isRequired,
+  }).isRequired,
+  hub: PropTypes.shape({
+    trigger: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Workspace;

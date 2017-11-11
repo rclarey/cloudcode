@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-const Account = React.createClass({
+class Account extends React.Component {
+  componentDidMount() {}
 
   render() {
     return (<div>Account</div>);
-  },
-
-});
+  }
+}
 
 Account.propTypes = {};
 

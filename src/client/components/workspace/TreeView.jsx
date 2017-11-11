@@ -1,24 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import Tree from 'components/workspace/Tree.jsx';
-import ResizeHandle from 'components/workspace/ResizeHandle.jsx';
 
-const TreeView = React.createClass({
-  propTypes: {
-    tree: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        file: React.PropTypes.bool.isRequired,
-      }),
-    ).isRequired,
-    hub: React.PropTypes.shape({
-      trigger: React.PropTypes.func.isRequired,
-    }).isRequired,
-    width: React.PropTypes.number.isRequired,
-  },
+import Tree from 'components/workspace/Tree';
+import ResizeHandle from 'components/workspace/ResizeHandle';
 
+class TreeView extends React.Component {
   shouldComponentUpdate(nextProps) {
     const p = this.props;
     return p.tree !== nextProps.tree || p.width !== nextProps.width;
-  },
+  }
 
   render() {
     return (
@@ -28,8 +18,17 @@ const TreeView = React.createClass({
         <ResizeHandle hub={this.props.hub} />
       </div>
     );
-  },
+  }
+}
 
-});
+TreeView.propTypes = {
+  tree: PropTypes.arrayOf(PropTypes.shape({
+    file: PropTypes.bool.isRequired,
+  })).isRequired,
+  hub: PropTypes.shape({
+    trigger: PropTypes.func.isRequired,
+  }).isRequired,
+  width: PropTypes.number.isRequired,
+};
 
 export default TreeView;

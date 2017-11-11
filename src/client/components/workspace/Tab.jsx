@@ -1,25 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-const Tab = React.createClass({
-  propTypes: {
-    active: React.PropTypes.bool.isRequired,
-    name: React.PropTypes.string.isRequired,
-    src: React.PropTypes.string.isRequired,
-    hub: React.PropTypes.shape({
-      trigger: React.PropTypes.func.isRequired,
-    }).isRequired,
-  },
-
+class Tab extends React.Component {
   shouldComponentUpdate(nextProps) {
     const dName = this.props.name !== nextProps.name;
     const dSrc = this.props.src !== nextProps.src;
     const dActive = this.props.active !== nextProps.active;
     return dName || dSrc || dActive;
-  },
+  }
 
   handleDelete() {
-    this.props.hub.trigger('tab:delete', this.props.src);
-  },
+    this.props.hub.trigger('tab:delete', this.props.index);
+  }
 
   render() {
     return (
@@ -30,8 +22,17 @@ const Tab = React.createClass({
         <button className="tab-close" onClick={this.handleDelete}>x</button>
       </li>
     );
-  },
+  }
+}
 
-});
+Tab.propTypes = {
+  active: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  hub: PropTypes.shape({
+    trigger: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Tab;
