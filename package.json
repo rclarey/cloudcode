@@ -1,51 +1,25 @@
 {
-  "name": "CloudCode",
+  "name": "cloudcode",
   "version": "1.0.0",
-  "description": "Collabrative coding in real time",
+  "description": "Collabrative coding in real time.",
+  "main": "client/main.ts",
   "scripts": {
-    "start": "cd build && node server",
-    "build": "webpack & npm run sass & npm run move & wait; npm run start",
-    "sass": "sass --style=compressed --sourcemap=none --no-cache  src/client/scss/main.scss build/assets/main.css && sass --style=compressed --sourcemap=none --no-cache  src/client/scss/app.scss build/assets/app.css && cleancss -o build/assets/main.css build/assets/main.css && cleancss -o build/assets/app.css build/assets/app.css",
-    "move": "for f in src/server/*; do cp -rf $f build/; done; cp -rf config/ build/config/; cp -rf vendor/ build/assets; cp -f package.json build/"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "bcrypt-nodejs": "latest",
-    "body-parser": "~1.0.0",
-    "connect-flash": "~0.1.1",
-    "connect-mongo": "^1.3.2",
-    "cookie-parser": "~1.0.0",
-    "express": "^4.14.0",
-    "express-session": "~1.0.0",
-    "freezer-js": "^0.11.2",
-    "mongodb": "~2.2.21",
-    "mongoose": "~4.4",
-    "morgan": "~1.0.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "prop-types": "^15.6.0",
-    "pug": "^2.0.0-beta6",
-    "react": "16.1",
-    "react-dom": "16.1",
-    "react-router-dom": "^4.2.2",
-    "serve-static": "^1.11.1",
-    "shortid": "^2.2.8",
-    "socket.io": "^2.0.3",
-    "whatwg-fetch": "^2.0.2"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1",
-    "clean-css": "^3.4.23",
-    "eslint": "^3.13.1",
-    "eslint-config-airbnb": "^14.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-react": "^6.9.0",
-    "webpack": "^3.6.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rclarey/cloudcode.git"
   },
   "author": "Russell Clarey",
-  "license": "ISC"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rclarey/cloudcode/issues"
+  },
+  "homepage": "https://github.com/rclarey/cloudcode#readme",
+  "dependencies": {
+    "simple-ot": "^1.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
 }
