@@ -5,3 +5,6 @@
 .eslintrc
 /config/db.js
 /config/session.js
+/client/node_modules
+/client/.cache
+/client/.fusebox
