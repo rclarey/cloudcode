@@ -17,9 +17,10 @@
   },
   "homepage": "https://github.com/rclarey/cloudcode#readme",
   "dependencies": {
-    "simple-ot": "^1.0.1"
+    "@rclarey/simple-ot": "^1.1.0"
   },
   "devDependencies": {
+    "fuse-box": "^3.7.1",
     "typescript": "^3.8.3"
   }
 }
