@@ -110,9 +110,14 @@ function handleMessages(
           for (const op of after) {
             const pos = cm.posFromIndex(op.position);
             if (op instanceof Insert) {
-              cm.replaceRange(op.char, pos);
+              cm.replaceRange(op.char, pos, pos, "~cloudcode~");
             } else {
-              cm.replaceRange("", pos, cm.posFromIndex(op.position + 1));
+              cm.replaceRange(
+                "",
+                pos,
+                cm.posFromIndex(op.position + 1),
+                "~cloudcode~"
+              );
             }
           }
         });
@@ -134,7 +139,7 @@ function handleEditorChange(
   ot: OT<Operation>
 ): ChangeFunc {
   return (cm, change) => {
-    if (change.origin == undefined || change.origin === "setValue") {
+    if (change.origin === "~cloudcode~" || change.origin === "setValue") {
       return;
     }
     const ops: ISerializedOperation[] = [];

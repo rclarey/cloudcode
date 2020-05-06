@@ -270,14 +270,12 @@ function sendMsg(socket, msg) {
 }
 function setMode(cm, mode, value) {
     if (mode === "typescript") {
-        console.log("yes typescript");
         cm.setOption("mode", {
             name: value,
             typescript: true
         });
     }
     else {
-        console.log(mode);
         cm.setOption("mode", value);
     }
 }
@@ -311,10 +309,10 @@ function handleMessages(socket, cm, select, ot) {
                     for (const op of after) {
                         const pos = cm.posFromIndex(op.position);
                         if (op instanceof charwise_1.Insert) {
-                            cm.replaceRange(op.char, pos);
+                            cm.replaceRange(op.char, pos, pos, "~cloudcode~");
                         }
                         else {
-                            cm.replaceRange("", pos, cm.posFromIndex(op.position + 1));
+                            cm.replaceRange("", pos, cm.posFromIndex(op.position + 1), "~cloudcode~");
                         }
                     }
                 });
@@ -328,8 +326,7 @@ function handleMessages(socket, cm, select, ot) {
 }
 function handleEditorChange(id, socket, ot) {
     return (cm, change) => {
-        console.log(change);
-        if (change.origin == undefined || change.origin === "setValue") {
+        if (change.origin === "~cloudcode~" || change.origin === "setValue") {
             return;
         }
         const ops = [];
@@ -341,7 +338,6 @@ function handleEditorChange(id, socket, ot) {
             ot.addToHistory(op);
         }
         for (const c of change.text.join("\n")) {
-            console.log(start, ">i>", JSON.stringify(c));
             const op = new charwise_1.Insert(c, start, util_1.genId(), ot.siteID, ot.history());
             ops.push(charwise_1.serialize(op));
             ot.addToHistory(op);
@@ -361,12 +357,10 @@ function handleSocketClose(id, cm, select, editorChangeHandler) {
         error_1.networkError((() => __awaiter(this, void 0, void 0, function* () {
             while (true) {
                 try {
-                    console.log("Trying to connect....");
                     yield setupSocket(id, cm, select);
                     return;
                 }
                 catch (_a) {
-                    console.log("Sleeping...");
                     yield new Promise(r => setTimeout(r, 1000));
                 }
             }
