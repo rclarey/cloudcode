@@ -264,7 +264,7 @@ const simple_ot_1 = require("@rclarey/simple-ot");
 const charwise_1 = require("@rclarey/simple-ot/dist/charwise");
 const error_1 = require("./error");
 const util_1 = require("./util");
-const WS_URL = "ws://localhost:8080";
+const WS_URL = "ws://cloudcode.fly.dev/:80";
 function sendMsg(socket, msg) {
     socket.send(JSON.stringify(msg));
 }
@@ -419,6 +419,7 @@ function setupSocket(id, cm, select) {
                 setMode(cm, util_1.modeId(opt.innerText), value);
             }
             const ot = new simple_ot_1.OT(charwise_1.inclusionTransform, charwise_1.exclusionTransform, msg.siteId);
+            msg.history.forEach(op => ot.addToHistory(charwise_1.deserialize(op)));
             const editorChangeHandler = handleEditorChange(id, socket, ot);
             select.onchange = handleSelectChange(id, socket, cm);
             socket.onmessage = handleMessages(socket, cm, select, ot);

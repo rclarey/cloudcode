@@ -1,8 +1,7 @@
 app = "cloudcode"
 
 [build]
-  builder = "github.com/superfly/builders/deno"
-  entry_file = "./main.ts"
+  builder = "my-deno-builder"
 
 
 [[services]]

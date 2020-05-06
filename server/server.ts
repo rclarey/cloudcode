@@ -1,8 +1,8 @@
-import { serve } from "https://deno.land/std@v0.41.0/http/server.ts";
+import { serve } from "https://deno.land/std@v1.0.0-rc1/http/server.ts";
 import {
   acceptWebSocket,
   WebSocket
-} from "https://deno.land/std@v0.41.0/ws/mod.ts";
+} from "https://deno.land/std@v1.0.0-rc1/ws/mod.ts";
 import { OT } from "./control.ts";
 import {
   ISerializedOperation,
@@ -10,10 +10,11 @@ import {
   Operation,
   exclusionTransform,
   inclusionTransform,
-  deserialize
+  deserialize,
+  serialize
 } from "./charwise.ts";
 
-const { PORT = "8080", CLOUDCODE_DEBUG } = Deno.env();
+const { PORT = "8080", CLOUDCODE_DEBUG } = Deno.env.toObject();
 
 const debug = !CLOUDCODE_DEBUG ? () => {} : console.log;
 
@@ -54,6 +55,7 @@ interface AckMsgOut {
   mode: string;
   value: string;
   siteId: number;
+  history: ISerializedOperation[];
 }
 
 interface OpMsgOut {
@@ -119,7 +121,8 @@ function handleInit(socket: WebSocket, msg: InitMsgIn): void {
     type: "ack",
     mode: data.mode.name,
     value: data.value,
-    siteId: data.nextSiteId
+    siteId: data.nextSiteId,
+    history: data.ot.historyBuffer.map(serialize)
   });
 
   data.nextSiteId += 1;
@@ -130,6 +133,10 @@ function handleOp(socket: WebSocket, msg: OpMsgIn): void {
   const data = docs.get(msg.id);
   if (!data) {
     throw new Error(`received op for non-existent doc (id: ${msg.id})`);
+  }
+
+  if (msg.ops.length === 0) {
+    return;
   }
 
   const after = [];
@@ -183,7 +190,7 @@ function handleMode(socket: WebSocket, msg: ModeMsgIn): void {
 
 async function socketLoop(socket: WebSocket): Promise<void> {
   let id: string = "";
-  const it = socket.receive();
+  const it = socket[Symbol.asyncIterator]();
   while (true) {
     try {
       const { done, value } = await it.next();

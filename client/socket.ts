@@ -12,13 +12,14 @@ import {
 import { fatalError, networkError } from "./error";
 import { deferred, ensureMode, genId, modeId } from "./util";
 
-const WS_URL = "ws://localhost:8080";
+const WS_URL = "ws://cloudcode.fly.dev/:80";
 
 interface AckMsgIn {
   type: "ack";
   mode: string;
   value: string;
   siteId: number;
+  history: ISerializedOperation[];
 }
 
 interface OpMsgIn {
@@ -257,6 +258,7 @@ export async function setupSocket(
     }
 
     const ot = new OT(inclusionTransform, exclusionTransform, msg.siteId);
+    msg.history.forEach(op => ot.addToHistory(deserialize(op)));
     const editorChangeHandler = handleEditorChange(id, socket, ot);
     select.onchange = handleSelectChange(id, socket, cm);
     socket.onmessage = handleMessages(socket, cm, select, ot);
