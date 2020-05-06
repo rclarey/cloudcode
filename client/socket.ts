@@ -64,13 +64,11 @@ function setMode(
   value: string | null
 ): void {
   if (mode === "typescript") {
-    console.log("yes typescript");
     cm.setOption("mode", {
       name: value,
       typescript: true
     });
   } else {
-    console.log(mode);
     cm.setOption("mode", value);
   }
 }
@@ -136,7 +134,6 @@ function handleEditorChange(
   ot: OT<Operation>
 ): ChangeFunc {
   return (cm, change) => {
-    console.log(change);
     if (change.origin == undefined || change.origin === "setValue") {
       return;
     }
@@ -150,7 +147,6 @@ function handleEditorChange(
     }
 
     for (const c of change.text.join("\n")) {
-      console.log(start, ">i>", JSON.stringify(c));
       const op = new Insert(c, start, genId(), ot.siteID, ot.history());
       ops.push(serialize(op));
       ot.addToHistory(op);
@@ -179,12 +175,10 @@ function handleSocketClose(
         // keep trying to reconnect until we are successful
         while (true) {
           try {
-            console.log("Trying to connect....");
             await setupSocket(id, cm, select);
             return;
           } catch {
             // sleep between retries
-            console.log("Sleeping...");
             await new Promise(r => setTimeout(r, 1000));
           }
         }
