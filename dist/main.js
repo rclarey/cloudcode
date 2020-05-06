@@ -264,7 +264,7 @@ const simple_ot_1 = require("@rclarey/simple-ot");
 const charwise_1 = require("@rclarey/simple-ot/dist/charwise");
 const error_1 = require("./error");
 const util_1 = require("./util");
-const WS_URL = "ws://cloudcode.fly.dev/:80";
+const WS_URL = "wss://cloudcode.fly.dev/:80";
 function sendMsg(socket, msg) {
     socket.send(JSON.stringify(msg));
 }
