@@ -12,7 +12,7 @@ import {
 import { fatalError, networkError } from "./error";
 import { deferred, ensureMode, genId, modeId } from "./util";
 
-const WS_URL = "ws://cloudcode.fly.dev/:80";
+const WS_URL = "wss://cloudcode.fly.dev/:80";
 
 interface AckMsgIn {
   type: "ack";
