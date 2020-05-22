@@ -1,6 +1,7 @@
-///<reference path="../types/codemirror.d.ts" />
-import { setupSocket } from "./socket";
-import { modeId } from "./util";
+/// <reference path="../types/codemirror.d.ts" />
+
+import { setupSocket } from "./socket.ts";
+import { modeId } from "./util.ts";
 
 const supportedModes: [string, string][] = [
   ["APL", "apl"],
@@ -132,7 +133,7 @@ const supportedModes: [string, string][] = [
   ["Yacas", "yacas"],
   ["YAML", "yaml"],
   ["YAML frontmatter", "yaml-frontmatter"],
-  ["Z80", "z80"]
+  ["Z80", "z80"],
 ];
 
 function vimToggle(parent: HTMLElement, cm: CodeMirror.Editor): void {
@@ -151,7 +152,7 @@ function vimToggle(parent: HTMLElement, cm: CodeMirror.Editor): void {
   toggle.className = "toggle__input";
   container.appendChild(toggle);
 
-  toggle.onchange = e => {
+  toggle.onchange = (e) => {
     const target = e.target as HTMLInputElement;
     if (target.checked) {
       cm.setOption("keyMap", "vim");
@@ -193,9 +194,8 @@ export default function editor(id: string): void {
     theme: "nord",
     lineNumbers: true,
     readOnly: true,
-    cursorBlinkRate: 0
+    cursorBlinkRate: 0,
   });
-  window.cm = cm;
   const select = modePicker(bar);
   vimToggle(bar, cm);
   setupSocket(id, cm, select);

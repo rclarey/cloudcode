@@ -1,9 +1,12 @@
-import { serve } from "https://deno.land/std@v1.0.0-rc1/http/server.ts";
+import { serve } from "https://deno.land/std@v0.52.0/http/server.ts";
 import {
   acceptWebSocket,
-  WebSocket
-} from "https://deno.land/std@v1.0.0-rc1/ws/mod.ts";
-import { OT } from "./control.ts";
+  WebSocket,
+} from "https://deno.land/std@v0.52.0/ws/mod.ts";
+import {
+  OT,
+} from "https://raw.githubusercontent.com/rclarey/simple-ot/v1.1.1/control.ts";
+
 import {
   ISerializedOperation,
   Insert,
@@ -11,8 +14,8 @@ import {
   exclusionTransform,
   inclusionTransform,
   deserialize,
-  serialize
-} from "./charwise.ts";
+  serialize,
+} from "https://raw.githubusercontent.com/rclarey/simple-ot/v1.1.1/charwise.ts";
 
 const { PORT = "8080", CLOUDCODE_DEBUG } = Deno.env.toObject();
 
@@ -107,8 +110,8 @@ function handleInit(socket: WebSocket, msg: InitMsgIn): void {
       value: "Hello World!",
       mode: {
         name: "plain-text",
-        timestamp: Date.now()
-      }
+        timestamp: Date.now(),
+      },
     };
     docs.set(msg.id, data);
   } else {
@@ -122,7 +125,7 @@ function handleInit(socket: WebSocket, msg: InitMsgIn): void {
     mode: data.mode.name,
     value: data.value,
     siteId: data.nextSiteId,
-    history: data.ot.historyBuffer.map(serialize)
+    history: data.ot.historyBuffer.map(serialize),
   });
 
   data.nextSiteId += 1;
@@ -230,7 +233,7 @@ async function wsServer() {
         conn,
         headers,
         bufReader: req.r,
-        bufWriter: req.w
+        bufWriter: req.w,
       });
       debug("Socket", addr, "connected");
       socketLoop(socket);

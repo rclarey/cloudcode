@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowUmdGlobalAccess": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "strict": true,
+    "removeComments": true,
+    "target": "esnext",
+    "lib": ["DOM", "esnext"],
+    "plugins": [
+      {
+        "name": "typescript-deno-plugin"
+      }
+    ]
+  }
+}

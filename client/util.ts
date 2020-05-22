@@ -11,8 +11,9 @@ export function genId(): string {
 }
 
 export function ensureMode(name: string | null): Promise<void> {
-  return new Promise(resolve => {
-    const modeUrl = `https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/mode/${name}/${name}.min.js`;
+  return new Promise((resolve) => {
+    const modeUrl =
+      `https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.53.2/mode/${name}/${name}.min.js`;
     if (name != null && !document.querySelector(`script[src="${modeUrl}"]`)) {
       const s = document.createElement("script");
       s.src = modeUrl;
@@ -27,7 +28,7 @@ export function ensureMode(name: string | null): Promise<void> {
 type deferred<T> = Promise<T> & { resolve: (v: T) => void };
 export function deferred<T>(): deferred<T> {
   let resolve: unknown;
-  const p = new Promise<T>(res => {
+  const p = new Promise<T>((res) => {
     resolve = res;
   });
 

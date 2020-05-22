@@ -1,4 +1,4 @@
-import { OT } from "@rclarey/simple-ot";
+import { OT } from "https://raw.githubusercontent.com/rclarey/simple-ot/v1.1.1/control.ts#^";
 import {
   inclusionTransform,
   exclusionTransform,
@@ -7,10 +7,10 @@ import {
   ISerializedOperation,
   Delete,
   serialize,
-  deserialize
-} from "@rclarey/simple-ot/dist/charwise";
-import { fatalError, networkError } from "./error";
-import { deferred, ensureMode, genId, modeId } from "./util";
+  deserialize,
+} from "https://raw.githubusercontent.com/rclarey/simple-ot/v1.1.1/charwise.ts#^";
+import { fatalError, networkError } from "./error.ts";
+import { deferred, ensureMode, genId, modeId } from "./util.ts";
 
 const WS_URL = "wss://cloudcode.fly.dev/:80";
 
@@ -61,12 +61,12 @@ function sendMsg(socket: WebSocket, msg: OutMsg): void {
 function setMode(
   cm: CodeMirror.Editor,
   mode: string,
-  value: string | null
+  value: string | null,
 ): void {
   if (mode === "typescript") {
     cm.setOption("mode", {
       name: value,
-      typescript: true
+      typescript: true,
     });
   } else {
     cm.setOption("mode", value);
@@ -77,7 +77,7 @@ function handleMessages(
   socket: WebSocket,
   cm: CodeMirror.Editor,
   select: HTMLSelectElement,
-  ot: OT<Operation>
+  ot: OT<Operation>,
 ): (e: MessageEvent) => void {
   return async (e: MessageEvent) => {
     try {
@@ -116,7 +116,7 @@ function handleMessages(
                 "",
                 pos,
                 cm.posFromIndex(op.position + 1),
-                "~cloudcode~"
+                "~cloudcode~",
               );
             }
           }
@@ -131,12 +131,12 @@ function handleMessages(
 
 type ChangeFunc = (
   cm: CodeMirror.Editor,
-  ch: CodeMirror.EditorChangeCancellable
+  ch: CodeMirror.EditorChangeCancellable,
 ) => void;
 function handleEditorChange(
   id: string,
   socket: WebSocket,
-  ot: OT<Operation>
+  ot: OT<Operation>,
 ): ChangeFunc {
   return (cm, change) => {
     if (change.origin === "~cloudcode~" || change.origin === "setValue") {
@@ -161,7 +161,7 @@ function handleEditorChange(
     sendMsg(socket, {
       id,
       ops,
-      type: "op"
+      type: "op",
     });
   };
 }
@@ -170,7 +170,7 @@ function handleSocketClose(
   id: string,
   cm: CodeMirror.Editor,
   select: HTMLSelectElement,
-  editorChangeHandler: ChangeFunc
+  editorChangeHandler: ChangeFunc,
 ): (e: CloseEvent) => void {
   return () => {
     cm.off("beforeChange", editorChangeHandler);
@@ -184,10 +184,10 @@ function handleSocketClose(
             return;
           } catch {
             // sleep between retries
-            await new Promise(r => setTimeout(r, 1000));
+            await new Promise((r) => setTimeout(r, 1000));
           }
         }
-      })()
+      })(),
     );
   };
 }
@@ -195,23 +195,22 @@ function handleSocketClose(
 function handleSelectChange(
   id: string,
   socket: WebSocket,
-  cm: CodeMirror.Editor
+  cm: CodeMirror.Editor,
 ): (e: Event) => void {
-  return async e => {
+  return async (e) => {
     const target = e.target as HTMLSelectElement;
     const opt = Array.from(target.children).find(
-      o => o instanceof HTMLOptionElement && o.selected
+      (o) => o instanceof HTMLOptionElement && o.selected,
     )! as HTMLOptionElement;
-    const [value, mode] =
-      target.value === "~null~"
-        ? [null, "plain-text"]
-        : [target.value, modeId(opt.innerText)];
+    const [value, mode] = target.value === "~null~"
+      ? [null, "plain-text"]
+      : [target.value, modeId(opt.innerText)];
 
     sendMsg(socket, {
       id,
       mode,
       timestamp: Date.now(),
-      type: "mode"
+      type: "mode",
     });
 
     await ensureMode(value);
@@ -222,7 +221,7 @@ function handleSelectChange(
 export async function setupSocket(
   id: string,
   cm: CodeMirror.Editor,
-  select: HTMLSelectElement
+  select: HTMLSelectElement,
 ): Promise<void> {
   const socket = new WebSocket(WS_URL);
   const opened = deferred<boolean>();
@@ -232,7 +231,7 @@ export async function setupSocket(
     sendMsg(socket, { type: "init", id });
   };
   socket.onerror = () => opened.resolve(false);
-  socket.onmessage = e => initMsg.resolve(e);
+  socket.onmessage = (e) => initMsg.resolve(e);
 
   const success = await opened;
   if (!success) {
@@ -244,7 +243,7 @@ export async function setupSocket(
     const msg = JSON.parse(data) as InMsg;
     if (msg.type !== "ack") {
       throw new Error(
-        `Expected an "ack" message, but received "${msg.type}" instead`
+        `Expected an "ack" message, but received "${msg.type}" instead`,
       );
     }
 
@@ -257,7 +256,7 @@ export async function setupSocket(
     }
 
     const ot = new OT(inclusionTransform, exclusionTransform, msg.siteId);
-    msg.history.forEach(op => ot.addToHistory(deserialize(op)));
+    msg.history.forEach((op) => ot.addToHistory(deserialize(op)));
     const editorChangeHandler = handleEditorChange(id, socket, ot);
     select.onchange = handleSelectChange(id, socket, cm);
     socket.onmessage = handleMessages(socket, cm, select, ot);

@@ -8,7 +8,7 @@ interface ModalOptions {
 export default function modal(opts: ModalOptions): HTMLDivElement {
   const bg = document.createElement("div");
   bg.className = "modal__bg";
-  bg.onclick = e => e.stopPropagation();
+  bg.onclick = (e) => e.stopPropagation();
 
   const root = document.createElement("div");
   root.className = "modal__root";
