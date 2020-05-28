@@ -1187,8 +1187,8 @@ System.register(
     var editor_ts_1, modal_ts_2, util_ts_3;
     var __moduleName = context_9 && context_9.id;
     function docId() {
-      const re = /\?doc=(?<id>[^&]*)/;
-      return re.exec(location.search)?.groups?.id ?? null;
+      const re = /\?doc=([^&]*)/;
+      return re.exec(location.search)?.[1] ?? null;
     }
     function render() {
       const id = docId();

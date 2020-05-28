@@ -3,8 +3,8 @@ import modal from "./modal.ts";
 import { genId } from "./util.ts";
 
 function docId(): string | null {
-  const re = /\?doc=(?<id>[^&]*)/;
-  return re.exec(location.search)?.groups?.id ?? null;
+  const re = /\?doc=([^&]*)/;
+  return re.exec(location.search)?.[1] ?? null;
 }
 
 function render(): void {
