@@ -1,8 +1,8 @@
-import { serve } from "https://deno.land/std@v0.52.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.64.0/http/server.ts";
 import {
   acceptWebSocket,
   WebSocket,
-} from "https://deno.land/std@v0.52.0/ws/mod.ts";
+} from "https://deno.land/std@0.64.0/ws/mod.ts";
 import {
   OT,
 } from "https://raw.githubusercontent.com/rclarey/simple-ot/v1.1.1/control.ts";
